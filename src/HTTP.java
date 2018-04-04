@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class HTTP {
-	private static final float HTTP_VERSION = 1.1f;
+	protected static final float HTTP_VERSION = 1.1f;
 	public enum FileType {
 			  HTML("text/html"),
 			  PNG("image/png");
@@ -27,7 +27,7 @@ public class HTTP {
         return s;
 	}
 	
-	private static String getServerTime() {
+	public static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat(
 	        "EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
@@ -35,4 +35,7 @@ public class HTTP {
 	    return dateFormat.format(calendar.getTime());
 	}
 
+	public static float getVersion() {
+		return HTTP_VERSION;
+	}
 }

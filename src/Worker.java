@@ -18,6 +18,8 @@ public class Worker implements Runnable{
 	BufferedWriter out;
 	BufferedReader in;
 
+	HTMLPage html;
+
 	public Worker(int number, Socket s) {
 		this.number = number;
 		this.socket = s;
@@ -35,14 +37,16 @@ public class Worker implements Runnable{
 	@Override
 	public void run() {
 		
-		HTMLPage html;
 		String request = "";
 		
 		try {
 			System.out.println("Doing things");
 			
 			html = new HTMLPage();
-
+			Combination test = new Combination();
+			test.setRandomCombi();
+			html.setNexCombination(test);
+			
 			boolean img = false;
 	        String s;
 	        request = in.readLine();
@@ -57,17 +61,13 @@ public class Worker implements Runnable{
 	            }
 	        }
 	        
-	        if(img == false) {
-		        String toSend = new String ("<TITLE>Exemple</TITLE>"+"<P>Ceci est une page d'exemple.<img src=\"empty.png\" alt=\"empty\" width=\"104\" height=\"142\"><img src=\"empty.png\" alt=\"empty\" width=\"50\" height=\"142\"></P>");
-		        
-		        toSend = html.getHtmlCode();
-		        
-		        System.out.println(HTTP.getHeader(HTTP.FileType.HTML, toSend.length()));
-	            out.write(HTTP.getHeader(HTTP.FileType.HTML, toSend.length()));
+	        if(img == false) {		        
+		        String toSend = html.getHtmlCode();
+		        out.write(HTTP.getHeader(HTTP.FileType.HTML, toSend.length()));
 		        out.write(toSend);
 	        }
 	        else {
-	        	System.out.println("Send img");
+	        	//Split the request header (
 	        	String[] tokens = request.split("\\s+");
 	        	String color = tokens[1].substring(1);
 	        	System.out.println(color);

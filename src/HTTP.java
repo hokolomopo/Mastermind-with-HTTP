@@ -15,6 +15,7 @@ public class HTTP {
 			}
 		}
 	
+	//Return a HTTP header for a given type and sive of message
 	static String getHeader(FileType type, int msgSize) {
 		String s = "";
 		
@@ -27,6 +28,7 @@ public class HTTP {
         return s;
 	}
 	
+	//Return the time in the HTTP format
 	public static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat(

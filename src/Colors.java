@@ -18,6 +18,7 @@ public enum Colors {
 		return this.name+".png";
 	}
 	
+	//Get a Color from a string
 	public static Colors getColor(String color) {
 		for(Colors c : Colors.values())
 			if(color.equals(c.name))

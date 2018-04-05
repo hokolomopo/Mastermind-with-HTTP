@@ -4,66 +4,69 @@
 <head>
 <style>
 
-.game {
+div.game {
     width: 80%;
     float : left;
 }
-.usr {
+div.usr {
     width: 20%;
     float : right;
+}
+img.usr{
+	width:15%;
+	height:15%;
 }
 
 body {
 	background-color: BurlyWood;
 }
-ul#horiz{
+ul.horiz{
 	padding-bottom: 2%
 }
-ul#horiz li {
+li.horiz {
     display:inline;
 }
-ul#game {
+.line{
+	    display:inline;
+
+}
+ul.game {
     list-style: none; 
     text-align: center;
     margin-left: 20%;
 }
-li#game {
+li.game {
 	padding-right : 2%;
 
 }
-img#game {
+img.game {
 	width:3%;
 	height:3%;
 }
-li#results {
+li.results {
     padding-right: 1%;
 }
-img#results {
+img.results {
 	width:2%;
 	height:2%;
 }
 
-ul#usr {
+ul.usr {
     list-style: none; 
     text-align: left;
     margin : 0;
     padding : 0;
 }
-ul#usr li {
+ul.usr li {
 	display:inline;
-	padding-right : 5%;
+	padding-right : 0%;
 	margin : 0;
-}
-img#usr{
-	width:15%;
-	height:15%;
-
 }
 
 .center {
     text-align: center;
 }
-h2#combi{
+h2.combi{
 	text-align: right;
 	margin-left: 0;
 }
@@ -73,26 +76,114 @@ h2#combi{
 
 <h1 class="center"> <u> Mastermind </u></h1>
 
-<div class="results">
-</div>
 <div class="game">
 	<!-- GAMETOKEN-->
 </div>
 
+<noscript>
+    <style>
+        .hideIfJS {display:none;}
+    </style>
+</noscript>
+
 <div class="usr">
-<h2>User Space</h2>
-  <ul id="usr">
-	  <li><img src="empty.png" alt="empty" id="usr"></li>
-	  <li><img src="empty.png" alt="empty" id="usr"></li>
-	  <li><img src="empty.png" alt="empty" id="usr"></li>
-	  <li><img src="empty.png" alt="empty" id="usr"></li>
+	<h2 id="usrTitle">User Space</h2>
+	<ul class="usr" class="hideIfJS">
+	  <li><img src="white.png" alt="white" class="usr" id="usrImg0" onclick="changeColor(0)"></li>
+	  <li><img src="white.png" alt="white" class="usr" id="usrImg1" onclick="changeColor(1)"></li>
+	  <li><img src="white.png" alt="white" class="usr" id="usrImg2" onclick="changeColor(2)"></li>
+	  <li><img src="white.png" alt="white" class="usr" id="usrImg3" onclick="changeColor(3)"></li>
 	</ul>  
-<form action="/propositon">
-  Colors:<br>
-  <input type="text" name="colors" value="red red red red">
-  <br>
-  <input type="submit" value="Submit">
-</form> 
+	<button class="hideIfJS" onclick="sendAjax()">Submit</button>
+
+
+	<noscript>
+		<form action="/play.html" method = "post">
+		  Colors:<br>
+		  <input type="text" name="colors" value="red red red red">
+		  <br>
+		  <input type="submit" value="Submit">
+		</form> 
+	</noscript>
+
+<script>
+var currentLine = 0; 
+
+function sendAjax(){
+
+	var toSend ="";
+	for(i = 0;i < 4;i++){
+		toSend+="+";
+		toSend += document.getElementById("usrImg" + i).alt;
+	}
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+		    var tokens = this.responseText.split("+");
+
+		    var color;
+			for(i = 0;i < 4;i++){
+				color = document.getElementById("usrImg" + i).alt;
+ 				document.getElementById("game"+currentLine+i).alt = color;
+ 				document.getElementById("game"+currentLine+i).src = color + ".png";
+			}
+
+			for(i = 0;i < tokens[0];i++){
+ 				document.getElementById("results"+currentLine+i).alt = "red";
+ 				document.getElementById("results"+currentLine+i).src = "red.png";
+			}
+			for(i = tokens[0];i < tokens[0]*1 + tokens[1]*1;i++){
+ 				document.getElementById("results"+currentLine+i).alt = "white";
+ 				document.getElementById("results"+currentLine+i).src = "white.png";
+			}
+			currentLine++;
+
+	}
+	};
+	xhttp.open("GET", "/request?" + toSend);
+	xhttp.send(); 
+
+}
+
+function changeColor(x) {
+	var element = document.getElementById("usrImg" + x);
+    var color = element.getAttribute("alt");
+
+	switch(color) {
+	    case "white":
+	        element.src = "black.png"; 
+	        element.alt = "black"; 
+	        break;
+	    case "black":
+	        element.src = "red.png"; 
+	        element.alt = "red"; 
+	        break;
+	    case "red":
+	        element.src = "blue.png"; 
+	        element.alt = "blue"; 
+	        break;
+	    case "blue":
+	        element.src = "yellow.png"; 
+	        element.alt = "yellow"; 
+	        break;
+	    case "yellow":
+	        element.src = "green.png"; 
+	        element.alt = "green"; 
+	        break
+	    case "green":
+	        element.src = "white.png"; 
+	        element.alt = "white"; 
+	        break;
+	    default:
+	        element.src = "white.png"; 
+	        element.alt = "white"; 
+	        break;
+}
+
+
+}
+</script>
 
 </div>
 

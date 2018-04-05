@@ -3,17 +3,20 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class HTTP {
-	private static final float HTTP_VERSION = 1.1f;
-	public enum FileType {
-			  HTML("text/html"),
-			  PNG("image/png");
+public abstract class HTTP {
+	protected static final float HTTP_VERSION = 1.1f;
+
+	public enum FileType{
+		HTML("text/html"),
+		PNG("image/apng");
 		
-			public String content_type;
-			private FileType(String s) {
-				this.content_type  = s;
-			}
+		String content_type;
+		
+		private FileType(String s) {
+			content_type = s;
 		}
+		
+	}
 	
 	//Return a HTTP header for a given type and sive of message
 	static String getHeader(FileType type, int msgSize) {
@@ -27,9 +30,9 @@ public class HTTP {
         
         return s;
 	}
-	
+
 	//Return the time in the HTTP format
-	private static String getServerTime() {
+	protected static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();
 	    SimpleDateFormat dateFormat = new SimpleDateFormat(
 	        "EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
@@ -37,4 +40,7 @@ public class HTTP {
 	    return dateFormat.format(calendar.getTime());
 	}
 
+	public static float getVersion() {
+		return HTTP_VERSION;
+	}
 }

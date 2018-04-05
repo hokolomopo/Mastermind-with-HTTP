@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class HeadMethodExecutor extends MethodExecutor{
 
     public HeadMethodExecutor{}
 
-    public void process{
+    public HTTPReply process(String url, ArrayList<HTTPHeader> headers, HTMLPage html){
 
     }
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -14,12 +15,20 @@ public class HTTPHeader {
     public HTTPHeader(String header) throws BadHeaderException {
         try {
             StringTokenizer token = new StringTokenizer(header, ":");
-            this.option = token.nextToken(HTTPOption.getCorrespondingOption(option));
-            this.value = token.nextToken(value);
+            this.option = HTTPOption.getCorrespondingOption(token.nextToken());
+            this.value = token.nextToken();
         }
         catch(BadOptionException | NoSuchElementException e){
             throw new BadHeaderException();
         }
+    }
+
+    public static FileType findHeaderValue (ArrayList<HTTPHeader> headers, HTTPOption option) throws OptionNotPresentException, BadFileException{
+        for(HTTPHeader header : headers){
+            if(header.getOption() == option)
+                return FileType.getCorrespondingFileType(header.getValue());
+        }
+        throw new OptionNotPresentException();
     }
 
     public HTTPOption getOption() {

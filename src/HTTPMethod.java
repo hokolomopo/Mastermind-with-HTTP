@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public enum HTTPMethod{
 
     GET("GET", new GetMethodExecutor()),
@@ -13,8 +15,8 @@ public enum HTTPMethod{
         this.exec = exec;
     }
 
-    public void process(){
-        exec.process();
+    public HTTPReply process(String url, ArrayList<HTTPHeader> headers, HTMLPage page){
+        return exec.process(url, headers, page);
     }
 
     public static HTTPMethod getCorrespondingMethod(String name) throws BadMethodException{

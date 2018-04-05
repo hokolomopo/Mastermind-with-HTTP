@@ -5,15 +5,7 @@ import java.util.TimeZone;
 
 public class HTTP {
 	protected static final float HTTP_VERSION = 1.1f;
-	public enum FileType {
-			  HTML("text/html"),
-			  PNG("image/png");
-		
-			public String content_type;
-			private FileType(String s) {
-				this.content_type  = s;
-			}
-		}
+
 	
 	//Return a HTTP header for a given type and sive of message
 	static String getHeader(FileType type, int msgSize) {
@@ -27,7 +19,7 @@ public class HTTP {
         
         return s;
 	}
-	
+
 	//Return the time in the HTTP format
 	public static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();

@@ -7,7 +7,7 @@ public class HTTPRequest extends HTTP{
     private HTTPMethod method;
     private String url;
 
-    public HTTPRequest(ArrayList<String> request) throws BadMessageException, BadMethodException, BadVersionException {
+    public HTTPRequest(ArrayList<String> request) throws BadRequestException, BadMethodException, BadVersionException {
 
         try {
             StringTokenizer token = new StringTokenizer(request.get(0), " ");
@@ -29,7 +29,7 @@ public class HTTPRequest extends HTTP{
             }
         }
         catch (IndexOutOfBoundsException | BadHeaderException e) {
-            throw new BadMessageException();
+            throw new BadRequestException();
         }
         catch(NumberFormatException e){
             throw new BadVersionException();

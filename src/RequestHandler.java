@@ -1,27 +1,27 @@
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.Socket;
 
 public class RequestHandler{
 
-    public String[] reply(ArrayList<String> request) {
+    public void handleRequest(Socket sock, HTMLPage page) throws IOException{
 
-        HTTPReply reply;
+        HTTPReply rep;
 
         try {
-            HTTPRequest req = new HTTPRequest(request);
+            HTTPRequest req = new HTTPRequest(sock.getInputStream());
+            rep = req.getMethod().process(req.getUrl(), req.getHeaders(), page);
         }
-        catch(BadMessageException e){
-            reply = new HTTPReply(ReturnCode.badRequest, new HTTPHeader[0], new String[0]);
-            return reply.buildReply();
+        catch(BadRequestException e){
+            rep = new HTTPReply(ReturnCode.badRequest, new HTTPHeader[0], new String[0]);
         }
         catch(BadMethodException e){
-            reply = new HTTPReply(ReturnCode.notImplemented, new HTTPHeader[0], new String[0]);
-            return reply.buildReply();
+            rep = new HTTPReply(ReturnCode.notImplemented, new HTTPHeader[0], new String[0]);
         }
         catch(BadVersionException e){
             String[] body = new String[1];
             body[0] = "The only supported version is " + HTTP.HTTP_VERSION;
-            reply = new HTTPReply(ReturnCode.HTTPVersionNotSupported, new HTTPHeader[0], body);
-            return reply.buildReply();
+            rep = new HTTPReply(ReturnCode.HTTPVersionNotSupported, new HTTPHeader[0], body);
         }
+        rep.reply(sock.getOutputStream());
     }
 }

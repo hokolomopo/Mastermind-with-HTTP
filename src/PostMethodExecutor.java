@@ -1,10 +1,10 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class PostMethodExecutor extends MethodExecutor{
 
     public PostMethodExecutor{}
 
-    public HTTPReply process(String url, ArrayList<HTTPHeader> headers, HTMLPage html){
+    public HTTPReply process(String url, HashSet<HTTPHeader> headers, HTMLPage html){
 
     }
 }

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public enum HTTPMethod{
 
@@ -15,7 +15,7 @@ public enum HTTPMethod{
         this.exec = exec;
     }
 
-    public HTTPReply process(String url, ArrayList<HTTPHeader> headers, HTMLPage page){
+    public HTTPReply process(String url, HashSet<HTTPHeader> headers, HTMLPage page) throws BadRequestException{
         return exec.process(url, headers, page);
     }
 

@@ -1,32 +1,37 @@
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class HTTPRequest extends HTTP{
 
-    private ArrayList<HTTPHeader> headers;
+    private HashSet<HTTPHeader> headers;
     private HTTPMethod method;
     private String url;
 
-    public HTTPRequest(ArrayList<String> request) throws BadRequestException, BadMethodException, BadVersionException {
+    public HTTPRequest(InputStream in) throws BadRequestException, BadMethodException, BadVersionException, IOException {
 
         try {
-            StringTokenizer token = new StringTokenizer(request.get(0), " ");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            StringTokenizer token = new StringTokenizer(reader.readLine(), " ");
 
             method = HTTPMethod.getCorrespondingMethod(token.nextToken());
             url = token.nextToken(); //TODO: vérif validité url?
             if(Float.parseFloat(token.nextToken()) != HTTP_VERSION)
                 throw new BadVersionException();
 
-            headers = new ArrayList<HTTPHeader>();
+            headers = new HashSet<HTTPHeader>();
 
-            int i = 1;
-            String tmpHeader = request.get(i);
+            String tmp = reader.readLine();
 
-            while (!tmpHeader.isEmpty()) {
-                headers.add(new HTTPHeader(tmpHeader));
-                i++;
-                tmpHeader = request.get(i);
+            while(!tmp.isEmpty()){
+                headers.add(new HTTPHeader(tmp));
+                tmp = reader.readLine();
             }
+
         }
         catch (IndexOutOfBoundsException | BadHeaderException e) {
             throw new BadRequestException();
@@ -44,7 +49,7 @@ public class HTTPRequest extends HTTP{
         return url;
     }
 
-    public ArrayList<HTTPHeader> getHeaders() {
+    public HashSet<HTTPHeader> getHeaders() {
         return headers; //TODO: clone?
     }
 }

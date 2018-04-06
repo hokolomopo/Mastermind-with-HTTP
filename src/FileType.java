@@ -1,15 +1,22 @@
 public enum FileType {
-    HTML("text/html"),
-    PNG("image/png");
+    HTML("text/html", true),
+    PNG("image/png", false),
+    URL("application/x-www-form-urlencoded", true);
 
     private String contentType;
+    private boolean isString;
 
-    private FileType(String contentType) {
+    private FileType(String contentType, boolean isString) {
         this.contentType  = contentType;
+        this.isString = isString;
     }
 
     public String getContentType() {
         return contentType;
+    }
+
+    public boolean isString() {
+        return isString;
     }
 
     public static FileType getCorrespondingFileType(String contentType) throws BadFileException{

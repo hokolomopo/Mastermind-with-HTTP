@@ -155,5 +155,8 @@ public class HTMLPage {
 		}
 		body = createGameUL();
 	}
-	
+
+	public Combination getCorrectCombi() {
+		return correctCombi;
+	}
 }

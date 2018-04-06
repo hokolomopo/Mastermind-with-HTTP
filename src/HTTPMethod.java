@@ -1,10 +1,10 @@
-import java.util.HashSet;
+import java.util.HashMap;
 
 public enum HTTPMethod{
 
     GET("GET", new GetMethodExecutor()),
     POST("POST", new PostMethodExecutor()),
-    HEAD("HEAD", new HeadMethodExecutor());
+    HEAD("HEAD", new HeadMethodExecutor();
 
     private MethodExecutor exec;
 
@@ -15,7 +15,7 @@ public enum HTTPMethod{
         this.exec = exec;
     }
 
-    public HTTPReply process(String url, HashSet<HTTPHeader> headers, HTMLPage page) throws BadRequestException{
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, HTMLPage page) throws BadRequestException{
         return exec.process(url, headers, page);
     }
 
@@ -26,5 +26,13 @@ public enum HTTPMethod{
                 return request;
         }
         throw new BadMethodException();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public MethodExecutor getExec() {
+        return exec;
     }
 }

@@ -5,19 +5,26 @@ public class Combination {
 	public static final int COMBI_LENGTH = 4;
 	
 	//Colors of the combination
-	Colors[] combi = new Colors[COMBI_LENGTH];
+	private Colors[] combi = new Colors[COMBI_LENGTH];
 	
 	//Results of the last evaluation of this combination
 	//result[0] = right color right place, result[1] = right color wrong place
-	int[] results = new int[2];
+	private int[] results = new int[2];
 		
-	public Combination() {
+	public Combination(){
 		
 		for(int i = 0;i < results.length;i++)
 			results[i] = 0;
 		
 		for(int i = 0;i < combi.length;i++)
 			combi[i] = Colors.EMPTY;
+	}
+
+	public Combination(String s) throws BadFormatException, BadColorException{
+		for(int i = 0;i < results.length;i++)
+			results[i] = 0;
+
+		setCombi(s);
 	}
 	
 	/*
@@ -26,14 +33,14 @@ public class Combination {
 	 * 
 	 * Throw IOException if string isn't of expected format or if a color doesn't exist
 	 */
-	public void setCombi(String s) throws IOException{
+	public void setCombi(String s) throws BadFormatException, BadColorException{
 		
 		//Cut the string into the colors
 		String[] colors = s.split("\\s+");
 		
 		//Check if we have the right amount of colors
 		if(colors.length != COMBI_LENGTH)
-			throw new IOException("Bad string format");
+			throw new BadFormatException();
 		
 		//Transform the Strings into Colors
 		for(int i = 0;i < COMBI_LENGTH;i++) {
@@ -41,7 +48,7 @@ public class Combination {
 			
 			//Throws exception if it was a bas color name
 			if(combi[i] == Colors.EMPTY)
-				throw new IOException("Bad color name");
+				throw new BadColorException();
 		}
 	}
 	

@@ -23,14 +23,6 @@ public class HTTPHeader {
         }
     }
 
-    public static FileType findHeaderValue (HashSet<HTTPHeader> headers, HTTPOption option) throws OptionNotPresentException, BadFileException{
-        for(HTTPHeader header : headers){
-            if(header.getOption() == option)
-                return FileType.getCorrespondingFileType(header.getValue());
-        }
-        throw new OptionNotPresentException();
-    }
-
     public HTTPOption getOption() {
         return option;
     }

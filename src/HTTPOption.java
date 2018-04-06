@@ -1,4 +1,5 @@
 public enum HTTPOption {
+    //Todo: tous les mettre
     ALLOW("Allow"),
     CONTENT_TYPE("Content-Type"),
     DATE("Date"),

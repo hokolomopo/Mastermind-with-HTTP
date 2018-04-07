@@ -1,3 +1,8 @@
+/**
+ * enumeration that holds the different possible types of the body of a HTTP request
+ * used in mastermind project
+ */
+
 public enum FileType {
     HTML("text/html", true),
     PNG("image/png", false),
@@ -19,6 +24,13 @@ public enum FileType {
         return isString;
     }
 
+    /**
+     * return the FileType object whose name correspond to the string ien in argument
+     *
+     * @param contentType the name of the searched FileType
+     * @return
+     * @throws BadFileException thrown in case no FileType match the given name
+     */
     public static FileType getCorrespondingFileType(String contentType) throws BadFileException{
         for(FileType type : FileType.values()){
             if(type.contentType.equals(contentType))

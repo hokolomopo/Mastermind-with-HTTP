@@ -20,7 +20,7 @@ public class HTTPRequest extends HTTP{
             System.out.println("before reading");
             String mdr = "mdr";
             try{
-                mdr  = reader.readLine();
+                mdr = reader.readLine();
             }
             catch(IOException e){
                 System.out.println("IOException");

@@ -16,10 +16,10 @@ public class RequestHandler{
             System.out.println("got reply");
         }
         catch(BadRequestException e){
-            rep = new HTTPReply(ReturnCode.badRequest, new HashMap<HTTPOption, HTTPHeader>(), new String[0]);
+            rep = new HTTPReply(ReturnCode.badRequest, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch(BadMethodException e){
-            rep = new HTTPReply(ReturnCode.notImplemented, new HashMap<HTTPOption, HTTPHeader>(), new String[0]);
+            rep = new HTTPReply(ReturnCode.notImplemented, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch(BadVersionException e){
             String[] body = new String[1];

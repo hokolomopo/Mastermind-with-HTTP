@@ -5,7 +5,7 @@ import java.util.TimeZone;
 
 public abstract class HTTP {
 	protected static final float HTTP_VERSION = 1.1f;
-	
+
 	//Return the time in the HTTP format
 	protected static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();

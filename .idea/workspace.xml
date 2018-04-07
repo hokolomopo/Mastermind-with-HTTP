@@ -19,8 +19,8 @@
             <state relative-caret-position="72">
               <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
               <folding>
-                <element signature="e#1014#1015#0" expanded="true" />
-                <element signature="e#1040#1041#0" expanded="true" />
+                <element signature="e#583#584#0" expanded="true" />
+                <element signature="e#609#610#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -349,12 +349,12 @@
       <workItem from="1523038667806" duration="1918000" />
       <workItem from="1523084545730" duration="1938000" />
       <workItem from="1523088799395" duration="128000" />
-      <workItem from="1523100239040" duration="1917000" />
+      <workItem from="1523100239040" duration="2041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72991000" />
+    <option name="totallyTimeSpent" value="73115000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="25" width="1303" height="780" extended-state="6" />
@@ -445,8 +445,8 @@
         <state relative-caret-position="522">
           <caret line="34" column="24" lean-forward="true" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
           <folding>
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1040#1041#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -847,8 +847,8 @@
         <state relative-caret-position="72">
           <caret line="7" column="4" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding>
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1040#1041#0" expanded="true" />
+            <element signature="e#583#584#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
           </folding>
         </state>
       </provider>

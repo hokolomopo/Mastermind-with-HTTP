@@ -6,21 +6,6 @@ import java.util.TimeZone;
 public abstract class HTTP {
 	protected static final float HTTP_VERSION = 1.1f;
 	
-	
-	//Return a HTTP header for a given type and sive of message
-	static String getHeader(FileType type, int msgSize) {
-		String s = "";
-		
-        s+= "HTTP/"+HTTP_VERSION+" 200 OK\r\n";
-        s+="Date: "+getServerTime()+"\r\n";
-        s+="Content-Type: "+type.content_type+"\r\n";
-        s+="Content-Length: "+ msgSize +"\r\n";
-        s+="\r\n";
-        
-        return s;
-	}
-
->>>>>>> 1b925273cdb76cdf86d476ef75282b129b2cb17d
 	//Return the time in the HTTP format
 	protected static String getServerTime() {
 	    Calendar calendar = Calendar.getInstance();

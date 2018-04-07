@@ -39,13 +39,8 @@ public class Worker implements Runnable{
 		
 		String request = "";
 		
-		try {
-			System.out.println("Doing things");
-			
+		try {			
 			html = new HTMLPage();
-			Combination test = new Combination();
-			test.setRandomCombi();
-			html.setNexCombination(test);
 			
 			boolean img = false;
 	        String s;
@@ -61,7 +56,11 @@ public class Worker implements Runnable{
 	            }
 	        }
 	        
-	        if(img == false) {		        
+	        if(request.contains("request")) {
+		        out.write(HTTP.getHeader(HTTP.FileType.HTML, "1+1".length()));
+		        out.write("1+1");
+	        }
+	        else if(img == false) {		        
 		        String toSend = html.getHtmlCode();
 		        out.write(HTTP.getHeader(FileType.HTML, toSend.length()));
 		        out.write(toSend);

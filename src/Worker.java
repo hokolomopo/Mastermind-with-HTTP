@@ -63,7 +63,7 @@ public class Worker implements Runnable{
 	        
 	        if(img == false) {		        
 		        String toSend = html.getHtmlCode();
-		        out.write(HTTP.getHeader(HTTP.FileType.HTML, toSend.length()));
+		        out.write(HTTP.getHeader(FileType.HTML, toSend.length()));
 		        out.write(toSend);
 	        }
 	        else {
@@ -78,7 +78,7 @@ public class Worker implements Runnable{
 	            ImageIO.write(image,"png",byteArrayOutputStream);
 
 	            
-	            out.write(HTTP.getHeader(HTTP.FileType.PNG, byteArrayOutputStream.size()));
+	            out.write(HTTP.getHeader(FileType.PNG, byteArrayOutputStream.size()));
 	            out.flush();
 	            ImageIO.write(image,"png",socket.getOutputStream());
 	            socket.getOutputStream().flush();

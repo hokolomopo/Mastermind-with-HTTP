@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import javax.imageio.ImageIO;
 
-/*
+
 public class Worker implements Runnable{
 
 
@@ -37,7 +37,14 @@ public class Worker implements Runnable{
 	
 	@Override
 	public void run() {
-		
+		try{
+			html = new HTMLPage();
+			RequestHandler.handleRequest(socket, html);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		/*
 		String request = "";
 		
 		try {			
@@ -91,11 +98,12 @@ public class Worker implements Runnable{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		*/
 
 	}
+
 
 	
 	
 
 }
-*/

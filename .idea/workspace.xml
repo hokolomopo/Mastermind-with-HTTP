@@ -3,34 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6b416ca9-d13d-460e-b8d5-82bec5c87cd5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/BadColorException.java" afterPath="$PROJECT_DIR$/src/BadColorException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadFileException.java" afterPath="$PROJECT_DIR$/src/BadFileException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadFormatException.java" afterPath="$PROJECT_DIR$/src/BadFormatException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadHeaderException.java" afterPath="$PROJECT_DIR$/src/BadHeaderException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadMethodException.java" afterPath="$PROJECT_DIR$/src/BadMethodException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadOptionException.java" afterPath="$PROJECT_DIR$/src/BadOptionException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadRequestException.java" afterPath="$PROJECT_DIR$/src/BadRequestException.java" />
-      <change beforePath="$PROJECT_DIR$/src/BadVersionException.java" afterPath="$PROJECT_DIR$/src/BadVersionException.java" />
-      <change beforePath="$PROJECT_DIR$/src/Colors.java" afterPath="$PROJECT_DIR$/src/Colors.java" />
-      <change beforePath="$PROJECT_DIR$/src/Combination.java" afterPath="$PROJECT_DIR$/src/Combination.java" />
-      <change beforePath="$PROJECT_DIR$/src/FileType.java" afterPath="$PROJECT_DIR$/src/FileType.java" />
-      <change beforePath="$PROJECT_DIR$/src/GetMethodExecutor.java" afterPath="$PROJECT_DIR$/src/GetMethodExecutor.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTMLPage.java" afterPath="$PROJECT_DIR$/src/HTMLPage.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTTP.java" afterPath="$PROJECT_DIR$/src/HTTP.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTTPHeader.java" afterPath="$PROJECT_DIR$/src/HTTPHeader.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTTPMethod.java" afterPath="$PROJECT_DIR$/src/HTTPMethod.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTTPOption.java" afterPath="$PROJECT_DIR$/src/HTTPOption.java" />
-      <change beforePath="$PROJECT_DIR$/src/HTTPRequest.java" afterPath="$PROJECT_DIR$/src/HTTPRequest.java" />
-      <change beforePath="$PROJECT_DIR$/src/HeadMethodExecutor.java" afterPath="$PROJECT_DIR$/src/HeadMethodExecutor.java" />
-      <change beforePath="$PROJECT_DIR$/src/MethodExecutor.java" afterPath="$PROJECT_DIR$/src/MethodExecutor.java" />
-      <change beforePath="$PROJECT_DIR$/src/OptionNotPresentException.java" afterPath="$PROJECT_DIR$/src/OptionNotPresentException.java" />
-      <change beforePath="$PROJECT_DIR$/src/PostMethodExecutor.java" afterPath="$PROJECT_DIR$/src/PostMethodExecutor.java" />
-      <change beforePath="$PROJECT_DIR$/src/RequestHandler.java" afterPath="$PROJECT_DIR$/src/RequestHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/ReturnCode.java" afterPath="$PROJECT_DIR$/src/ReturnCode.java" />
-      <change beforePath="$PROJECT_DIR$/src/TestClient.java" afterPath="$PROJECT_DIR$/src/TestClient.java" />
-      <change beforePath="$PROJECT_DIR$/src/TestServer.java" afterPath="$PROJECT_DIR$/src/TestServer.java" />
-      <change beforePath="$PROJECT_DIR$/src/WebServer.java" afterPath="$PROJECT_DIR$/src/WebServer.java" />
-      <change beforePath="$PROJECT_DIR$/src/Worker.java" afterPath="$PROJECT_DIR$/src/Worker.java" />
+      <change beforePath="$PROJECT_DIR$/src/HTTPReply.java" afterPath="$PROJECT_DIR$/src/HTTPReply.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -108,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GetMethodExecutor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GetMethodExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GetMethodExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
+            <state relative-caret-position="401">
               <caret line="49" column="56" lean-forward="false" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
               <folding />
             </state>
@@ -128,12 +101,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HTTPReply.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HTTPReply.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/HTTPReply.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-              <folding />
+            <state relative-caret-position="342">
+              <caret line="46" column="64" lean-forward="false" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
+              <folding>
+                <element signature="e#1759#1760#0" expanded="true" />
+                <element signature="e#1789#1790#0" expanded="true" />
+                <element signature="e#1829#1830#0" expanded="true" />
+                <element signature="e#1861#1862#0" expanded="true" />
+                <element signature="e#1932#1933#0" expanded="true" />
+                <element signature="e#1970#1971#0" expanded="true" />
+                <element signature="e#2004#2005#0" expanded="true" />
+                <element signature="e#2030#2031#0" expanded="true" />
+                <element signature="e#2089#2090#0" expanded="true" />
+                <element signature="e#2119#2120#0" expanded="true" />
+                <element signature="e#2150#2151#0" expanded="true" />
+                <element signature="e#2177#2178#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -188,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/BadRequestException.java" />
         <option value="$PROJECT_DIR$/src/OptionNotPresentException.java" />
         <option value="$PROJECT_DIR$/src/BadFileException.java" />
-        <option value="$PROJECT_DIR$/src/HTTPReply.java" />
         <option value="$PROJECT_DIR$/src/HTTPHeader.java" />
         <option value="$PROJECT_DIR$/src/BadFormatException.java" />
         <option value="$PROJECT_DIR$/src/BadColorException.java" />
@@ -209,6 +194,7 @@
         <option value="$PROJECT_DIR$/src/Worker.java" />
         <option value="$PROJECT_DIR$/src/HTTP.java" />
         <option value="$PROJECT_DIR$/src/GetMethodExecutor.java" />
+        <option value="$PROJECT_DIR$/src/HTTPReply.java" />
       </list>
     </option>
   </component>
@@ -459,12 +445,12 @@
       <workItem from="1523209193526" duration="434000" />
       <workItem from="1523209818908" duration="809000" />
       <workItem from="1523210832154" duration="246000" />
-      <workItem from="1523288304952" duration="4870000" />
+      <workItem from="1523288304952" duration="5881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80713000" />
+    <option name="totallyTimeSpent" value="81724000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="25" width="1303" height="780" extended-state="6" />
@@ -478,7 +464,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -807,14 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HTTPReply.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/HTTPRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1620">
@@ -868,9 +846,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GetMethodExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
+        <state relative-caret-position="401">
           <caret line="49" column="56" lean-forward="false" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HTTPReply.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="46" column="64" lean-forward="false" selection-start-line="46" selection-start-column="64" selection-end-line="46" selection-end-column="64" />
+          <folding>
+            <element signature="e#1759#1760#0" expanded="true" />
+            <element signature="e#1789#1790#0" expanded="true" />
+            <element signature="e#1829#1830#0" expanded="true" />
+            <element signature="e#1861#1862#0" expanded="true" />
+            <element signature="e#1932#1933#0" expanded="true" />
+            <element signature="e#1970#1971#0" expanded="true" />
+            <element signature="e#2004#2005#0" expanded="true" />
+            <element signature="e#2030#2031#0" expanded="true" />
+            <element signature="e#2089#2090#0" expanded="true" />
+            <element signature="e#2119#2120#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2177#2178#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

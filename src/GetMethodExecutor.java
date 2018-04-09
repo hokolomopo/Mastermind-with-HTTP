@@ -26,13 +26,13 @@ public class GetMethodExecutor extends MethodExecutor {
         boolean isRequest = false;
 
         try {
-            isRequest = url.startsWith("Request", 1);
+            isRequest = url.startsWith("request?", 1);
         }
         catch (IndexOutOfBoundsException e) {
             //let isRequest to false;
         }
         if (isRequest) {
-            String request = url.substring(8);
+            String request = url.substring(9);
             String[] splittedRequest = request.split("=");
             if (!splittedRequest[0].equals("colors") || splittedRequest.length != 2)
                 throw new BadRequestException();
@@ -42,14 +42,13 @@ public class GetMethodExecutor extends MethodExecutor {
                 testedCombi.evaluate(page.getCorrectCombi());
                 int[] results = testedCombi.getResults();
 
-                replyBody = results[0] + " + " + results[1];
+                replyBody = results[0] + "+" + results[1];
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.URL.getContentType()));
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length() * 4)));
 
             }
             catch(BadFormatException | BadColorException e){
                 throw new BadRequestException();
-
             }
         }
 

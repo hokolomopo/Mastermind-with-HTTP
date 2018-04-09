@@ -27,8 +27,11 @@ public class HTTPReply extends HTTP {
 
         writer.write("HTTP/" + HTTP_VERSION + " " + ret.getCode() + " " + ret.getStatus() + "\r\n");
 
-        for (HTTPHeader header : headers.values())
+        System.out.println("headerValue = ");
+        for (HTTPHeader header : headers.values()){
+            System.out.println(header.getOption().getName() + ":" + header.getValue());
             writer.write(header.getOption().getName() + ":" + header.getValue() + "\r\n");
+        }
 
         writer.write("\r\n");
 
@@ -36,8 +39,9 @@ public class HTTPReply extends HTTP {
             FileType type;
 
             type = FileType.getCorrespondingFileType(headers.get(HTTPOption.CONTENT_TYPE).getValue());
-            if (type == null)
+            if (type == null) {
                 throw new OptionNotPresentException();
+            }
 
             if (type == FileType.PNG) { // it is an image
                 if (!ImageIO.write((BufferedImage) body, "png", out))

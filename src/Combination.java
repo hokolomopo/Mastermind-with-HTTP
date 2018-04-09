@@ -36,7 +36,7 @@ public class Combination {
     public void setCombi(String s) throws BadFormatException, BadColorException {
 
         //Cut the string into the colors
-        String[] colors = s.split("\\s+");
+        String[] colors = s.split("\\+");
 
         //Check if we have the right amount of colors
         if (colors.length != COMBI_LENGTH)

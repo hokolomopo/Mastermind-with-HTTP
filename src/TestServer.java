@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 public class TestServer {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         try {
             ServerSocket sock = new ServerSocket(8001);
             Socket client = sock.accept();
@@ -17,11 +17,11 @@ public class TestServer {
 
             HTMLPage html = new HTMLPage();
 
-            while(true){
+            while (true) {
                 RequestHandler.handleRequest(client, html);
             }
         }
-        catch(Exception e){
+        catch (Exception e) {
             System.out.println("et merde");
         }
     }

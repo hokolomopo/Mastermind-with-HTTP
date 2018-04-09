@@ -12,7 +12,7 @@ public enum FileType {
     private boolean isString;
 
     private FileType(String contentType, boolean isString) {
-        this.contentType  = contentType;
+        this.contentType = contentType;
         this.isString = isString;
     }
 
@@ -31,9 +31,9 @@ public enum FileType {
      * @return
      * @throws BadFileException thrown in case no FileType match the given name
      */
-    public static FileType getCorrespondingFileType(String contentType) throws BadFileException{
-        for(FileType type : FileType.values()){
-            if(type.contentType.equals(contentType))
+    public static FileType getCorrespondingFileType(String contentType) throws BadFileException {
+        for (FileType type : FileType.values()) {
+            if (type.contentType.equals(contentType))
                 return type;
         }
         throw new BadFileException();

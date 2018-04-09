@@ -1,4 +1,4 @@
-public enum ReturnCode{
+public enum ReturnCode {
 
     //TODO: ajouter les status
     OK(200, ""),

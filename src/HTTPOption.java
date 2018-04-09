@@ -52,13 +52,13 @@ public enum HTTPOption {
 
     private String name;
 
-    private HTTPOption(String name){
+    private HTTPOption(String name) {
         this.name = name;
     }
 
-    public static HTTPOption getCorrespondingOption(String name) throws BadOptionException{
-        for(HTTPOption option : HTTPOption.values()){
-            if(option.name.equals(name))
+    public static HTTPOption getCorrespondingOption(String name) throws BadOptionException {
+        for (HTTPOption option : HTTPOption.values()) {
+            if (option.name.equals(name))
                 return option;
         }
         throw new BadOptionException();

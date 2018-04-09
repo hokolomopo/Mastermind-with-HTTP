@@ -1,4 +1,5 @@
-public class BadOptionException extends Exception{
+public class BadOptionException extends Exception {
 
-    public BadOptionException(){}
+    public BadOptionException() {
+    }
 }

@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class TestClient {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         try {
             Socket sock = new Socket("localhost", 8001);
 
@@ -32,7 +32,7 @@ public class TestClient {
                     "User-Agent= Mozilla/5.0\r\n" +
                     "Accept: text/html\r\n" +
                     "Accept-Encoding: gzip, deflate, br\r\n" +
-                    "Accept-Language: fr-FR\r\n" + 
+                    "Accept-Language: fr-FR\r\n" +
                     "\r\n";
 
             String getEmpty = "GET /empty.png HTTP/1.1\r\n" +
@@ -78,7 +78,7 @@ public class TestClient {
             System.out.println("getEmpty reply:");
             System.out.println(reply);
         }
-        catch(Exception e){
+        catch (Exception e) {
             System.out.println("et merde une exception");
         }
     }

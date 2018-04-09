@@ -10,40 +10,41 @@ import java.net.Socket;
 import javax.imageio.ImageIO;
 
 
-public class Worker implements Runnable{
+public class Worker implements Runnable {
 
 
-	private Socket socket;
-	private int number;
-	
-	BufferedWriter out;
-	BufferedReader in;
+    private Socket socket;
+    private int number;
 
-	HTMLPage html;
+    BufferedWriter out;
+    BufferedReader in;
 
-	public Worker(int number, Socket s) {
-		this.number = number;
-		this.socket = s;
-		System.out.println("Do things number "+this.number);
-		
-		try {
-	        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    HTMLPage html;
 
-	}
-	
-	@Override
-	public void run() {
-		try{
-			html = new HTMLPage();
-			RequestHandler.handleRequest(socket, html);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+    public Worker(int number, Socket s) {
+        this.number = number;
+        this.socket = s;
+        System.out.println("Do things number " + this.number);
+
+        try {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+        try {
+            html = new HTMLPage();
+            RequestHandler.handleRequest(socket, html);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 		/*
 		String request = "";
 		
@@ -100,10 +101,7 @@ public class Worker implements Runnable{
 		}
 		*/
 
-	}
+    }
 
-
-	
-	
 
 }

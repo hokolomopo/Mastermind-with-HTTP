@@ -46,7 +46,8 @@ public class HTTPRequest extends HTTP{
 
             while(!tmp.isEmpty()){
                 tmpHeader = new HTTPHeader(tmp);
-                System.out.println("tmpHeader = " + tmpHeader.getOption().getName());
+                System.out.println("headerOption = " + tmpHeader.getOption().getName());
+                System.out.println("headerValue = " + tmpHeader.getValue());
                 headers.put(tmpHeader.getOption(), tmpHeader);
                 tmp = reader.readLine();
                 System.out.println("tmp = " + tmp);

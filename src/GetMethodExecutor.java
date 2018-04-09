@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class GetMethodExecutor extends MethodExecutor{
 
+    //Todo: gérer les requêtes favicon
     //Todo: gérer la possibilité de set des paramètres dans l'url
     public GetMethodExecutor(){}
 

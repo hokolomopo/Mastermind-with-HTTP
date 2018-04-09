@@ -17,6 +17,18 @@ public class HTTPHeader {
             StringTokenizer token = new StringTokenizer(header, ":");
             this.option = HTTPOption.getCorrespondingOption(token.nextToken());
             this.value = token.nextToken();
+            // continue to read while there are tokens because the value may contain ':'
+            String tmp;
+            try{
+                while(true){
+                    tmp = token.nextToken();
+                    this.value += ':';
+                    this.value += tmp;
+                }
+            }
+            catch(NoSuchElementException e){
+                // end of loop
+            }
         }
         catch(BadOptionException | NoSuchElementException e){
             throw new BadHeaderException();

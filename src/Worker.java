@@ -21,30 +21,32 @@ public class Worker implements Runnable {
 
     HTMLPage html;
 
+
     public Worker(int number, Socket s) {
-        this.number = number;
-        this.socket = s;
-        System.out.println("Do things number " + this.number);
+		this.number = number;
+		this.socket = s;
+		
+		System.out.println("Do things number "+this.number);
+		
+		try {
+	        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void run() {
-        try {
-            html = new HTMLPage();
-            RequestHandler.handleRequest(socket, html);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+	}
+	
+	@Override
+	public void run() {
+		try{
+			html = new HTMLPage();
+			RequestHandler.handleRequest(socket, html);
+			socket.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		/*
 		String request = "";
 		

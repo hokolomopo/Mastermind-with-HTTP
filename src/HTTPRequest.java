@@ -109,4 +109,8 @@ public class HTTPRequest extends HTTP {
     public String getBody() {
         return body;
     }
+    
+    public HTTPHeader getHeader(HTTPOption option) {
+    	return headers.get(option);
+    }
 }

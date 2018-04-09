@@ -1,11 +1,13 @@
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WebServer {
 
     private static final int port = 8001;
+    private static ArrayList<Cookie> cookies;
 
     @SuppressWarnings("resource")
     public static void main(String[] args) throws Exception {
@@ -27,5 +29,17 @@ public class WebServer {
         }
 
     }
+    
+    public static Cookie getCookie(String id) {
+    	for(Cookie c : cookies)
+    		if(c.getId().compareTo(id) == 0)
+    			return c;
+    	return null;
+    }
+    
+    public static void addCookie(Cookie cookie) {
+    	cookies.add(cookie);
+    }
+    
 
 }

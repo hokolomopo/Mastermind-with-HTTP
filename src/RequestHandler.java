@@ -2,8 +2,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.HashMap;
 
-public class RequestHandler {
-
+public class RequestHandler{
+	
+	
     public static void handleRequest(Socket sock, HTMLPage page) throws IOException {
 
         HTTPReply rep;

@@ -111,9 +111,10 @@ var currentLine = 0;
 
 function sendAjax(){
 
-	var toSend ="";
+	var toSend ="colors=";
 	for(i = 0;i < 4;i++){
-		toSend+="+";
+		if(i != 0)
+			toSend+="+";
 		toSend += document.getElementById("usrImg" + i).alt;
 	}
 	var xhttp = new XMLHttpRequest();

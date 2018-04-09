@@ -29,7 +29,7 @@ public class Combination {
 
     /*
      * Set the combination to the argument string
-     * String must have the format : "color1 color2 color3 color4"
+     * String must have the format : "color1+color2+color3+color4"
      *
      * Throw IOException if string isn't of expected format or if a color doesn't exist
      */

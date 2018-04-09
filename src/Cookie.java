@@ -21,23 +21,38 @@ public class Cookie {
 		}
 
 		this.answer = rightCombi;
+		
+	}
+	
+	public Cookie(Combination rightCombi, String id) {
+		this.id = id;
+		
+		this.triedCombi = new Combination[HTMLPage.LIVES];
+		
+		for(int i = 0;i < HTMLPage.LIVES;i++) { 
+			triedCombi[i] = new Combination();
+		}
+
+		this.answer = rightCombi;
+
 	}
 	
 	private void generateId() {
 		Random rand = new Random();
 		int tmp = rand.nextInt((int)Math.pow(10, COOKIE_LENGTH));
 		
-		this.id = Integer.toString(tmp);
+		this.id =  COOKIE_TYPE + ":" + Integer.toString(tmp);
 	}
 	
 	public String getId() {
-		return COOKIE_TYPE + ":" + this.id;
+		return this.id;
 	}
 	
 	public void setUpHTMLPage(HTMLPage page) {
+		System.out.println("Cookie setting up page lgt = ");
 		
 		page.setCorrectCombination(this.answer);
-		
+		int i = 0;
 		for(Combination c : triedCombi) {
 			page.setNexCombination(c);
 		}
@@ -54,5 +69,13 @@ public class Cookie {
 	public void addTry(Combination combi) {
 		this.triedCombi[currentTry] = combi;
 		currentTry++;
+	}
+	
+	public Combination getRightCombination() {
+		return answer;
+	}
+	
+	public int getCurrentTry(){
+		return currentTry;
 	}
 }

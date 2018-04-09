@@ -7,12 +7,13 @@ public class PostMethodExecutor extends MethodExecutor {
     public PostMethodExecutor() {
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody, HTMLPage html) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException {
 
         if (!url.equals("/page/html"))
             throw new BadRequestException();
 
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();
+    
 
         try {
             if (type == null || FileType.getCorrespondingFileType(type) != FileType.URL)
@@ -21,18 +22,21 @@ public class PostMethodExecutor extends MethodExecutor {
         catch (BadFileException e) {
             throw new BadRequestException();
         }
+        
+        HashMap<HTTPOption, HTTPHeader> replyHeaders = new HashMap<HTTPOption, HTTPHeader>();
 
+        this.manageCookies(headers, replyHeaders);
         StringTokenizer token = new StringTokenizer(requestBody, "=");
+        
         try {
             if (token.nextToken() != "colors")
                 throw new BadRequestException();
 
             Combination combi = new Combination(token.nextToken());
-            combi.evaluate(html.getCorrectCombi());
+            combi.evaluate(this.cookie.getRightCombination());
 
             String body = combi.getResults()[0] + " + " + combi.getResults()[1];
 
-            HashMap<HTTPOption, HTTPHeader> replyHeaders = new HashMap<HTTPOption, HTTPHeader>();
             replyHeaders.put(HTTPOption.DATE, new HTTPHeader(HTTPOption.DATE, getServerTime()));
             replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.URL.getContentType()));
             //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer

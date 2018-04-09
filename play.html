@@ -107,7 +107,6 @@ h2.combi{
 	</noscript>
 
 <script>
-var currentLine = 0; 
 
 function sendAjax(){
 
@@ -118,10 +117,15 @@ function sendAjax(){
 		toSend += document.getElementById("usrImg" + i).alt;
 	}
 	var xhttp = new XMLHttpRequest();
-
+	console.log("Send");
 	xhttp.onreadystatechange = function() {
+		console.log(this.readyState +" "+ this.status);
+
 		if (this.readyState == 4 && this.status == 200) {
 		    var tokens = this.responseText.split("+");
+		    console.log("Answer received : " +tokens[0] + " "+ tokens[1] + " " + tokens[2]);
+
+			var currentLine = tokens[0];
 
 		    var color;
 			for(i = 0;i < 4;i++){
@@ -130,15 +134,14 @@ function sendAjax(){
  				document.getElementById("game"+currentLine+i).src = color + ".png";
 			}
 
-			for(i = 0;i < tokens[0];i++){
+			for(i = 0;i < tokens[1];i++){
  				document.getElementById("results"+currentLine+i).alt = "red";
  				document.getElementById("results"+currentLine+i).src = "red.png";
 			}
-			for(i = tokens[0];i < tokens[0]*1 + tokens[1]*1;i++){
+			for(i = tokens[1];i < tokens[1]*1 + tokens[2]*1;i++){
  				document.getElementById("results"+currentLine+i).alt = "white";
  				document.getElementById("results"+currentLine+i).src = "white.png";
 			}
-			currentLine++;
 
 	}
 	};

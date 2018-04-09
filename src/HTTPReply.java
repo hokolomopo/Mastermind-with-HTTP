@@ -39,13 +39,15 @@ public class HTTPReply extends HTTP {
             FileType type;
 
             type = FileType.getCorrespondingFileType(headers.get(HTTPOption.CONTENT_TYPE).getValue());
+            
             if (type == null) {
                 throw new OptionNotPresentException();
             }
 
             if (type == FileType.PNG) { // it is an image
-                if (!ImageIO.write((BufferedImage) body, "png", out))
+                if (!ImageIO.write((BufferedImage) body, "png", out)) {
                     throw new IOException();
+                }
             }
             else { // it is not an image and it is thus a string
                 writer.write((String) body);

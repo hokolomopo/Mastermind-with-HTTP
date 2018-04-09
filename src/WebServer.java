@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 public class WebServer {
 
     private static final int port = 8001;
-    private static ArrayList<Cookie> cookies;
+    private static ArrayList<Cookie> cookies = new ArrayList<Cookie>();
 
     @SuppressWarnings("resource")
     public static void main(String[] args) throws Exception {
@@ -31,9 +31,12 @@ public class WebServer {
     }
     
     public static Cookie getCookie(String id) {
-    	for(Cookie c : cookies)
-    		if(c.getId().compareTo(id) == 0)
+    	    	
+    	for(Cookie c : cookies) {
+    		if(c.getId().equals(id)) {
     			return c;
+    		}
+    	}
     	return null;
     }
     

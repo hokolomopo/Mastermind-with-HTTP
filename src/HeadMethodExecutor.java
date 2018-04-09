@@ -5,9 +5,9 @@ public class HeadMethodExecutor extends MethodExecutor {
     public HeadMethodExecutor() {
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String body, HTMLPage html) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String body) throws BadRequestException {
 
-        HTTPReply reply = new GetMethodExecutor().process(url, requestHeaders, body, html);
+        HTTPReply reply = new GetMethodExecutor().process(url, requestHeaders, body);
         reply.setBody(null);
         return reply;
     }

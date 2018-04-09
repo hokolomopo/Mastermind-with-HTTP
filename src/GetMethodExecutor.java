@@ -7,12 +7,13 @@ import java.util.HashMap;
 
 public class GetMethodExecutor extends MethodExecutor {
 
+	
     //Todo: gérer les requêtes favicon
     //Todo: gérer la possibilité de set des paramètres dans l'url
     public GetMethodExecutor() {
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String requestBody, HTMLPage page) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String requestBody) throws BadRequestException {
 
         if (url.charAt(0) != '/')
             throw new BadRequestException();
@@ -22,7 +23,8 @@ public class GetMethodExecutor extends MethodExecutor {
 
         //Todo: add other headers
         replyHeaders.put(HTTPOption.DATE, new HTTPHeader(HTTPOption.DATE, getServerTime()));
-
+        this.manageCookies(requestHeaders, replyHeaders);
+        
         boolean isRequest = false;
 
         try {
@@ -38,13 +40,16 @@ public class GetMethodExecutor extends MethodExecutor {
                 throw new BadRequestException();
 
             try {
+            	
+            	
                 Combination testedCombi = new Combination(splittedRequest[1]);
-                testedCombi.evaluate(page.getCorrectCombi());
+                testedCombi.evaluate(this.cookie.getRightCombination());
+                this.cookie.addTry(testedCombi);
                 int[] results = testedCombi.getResults();
-
-                replyBody = results[0] + "+" + results[1];
-                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.URL.getContentType()));
-                replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length() * 4)));
+                
+                replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
+                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
+                replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length())));
 
             }
             catch(BadFormatException | BadColorException e){
@@ -67,10 +72,19 @@ public class GetMethodExecutor extends MethodExecutor {
             }
         }
         else if (url.equals("/") || url.equals("/page.html")) { // it is the page
+        	HTMLPage page = null;;
+        	
+			try {
+				page = new HTMLPage();
+			} catch (IOException e) {
+                throw new BadRequestException();
+			}
+			
+        	this.cookie.setUpHTMLPage(page);
             replyBody = page.getHtmlCode();
             replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
             //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer
-            replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length() * 4)));
+            replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length() )));
         }
         else { // invalid url
             throw new BadRequestException();
@@ -78,4 +92,5 @@ public class GetMethodExecutor extends MethodExecutor {
 
         return new HTTPReply(ReturnCode.OK, replyHeaders, replyBody);
     }
+    
 }

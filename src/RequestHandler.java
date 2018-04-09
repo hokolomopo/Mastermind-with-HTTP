@@ -13,7 +13,7 @@ public class RequestHandler{
             System.out.println("begin handling");
             HTTPRequest req = new HTTPRequest(sock.getInputStream());
             System.out.println("got request");
-            rep = req.getMethod().process(req.getUrl(), req.getHeaders(), req.getBody(), page);
+            rep = req.getMethod().process(req.getUrl(), req.getHeaders(), req.getBody());
             System.out.println("got reply");
         }
         catch (BadRequestException e) {

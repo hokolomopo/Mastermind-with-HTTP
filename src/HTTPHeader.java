@@ -7,7 +7,7 @@ public class HTTPHeader {
     private HTTPOption option;
     private String value;
 
-    public HTTPHeader(HTTPOption option, String value){
+    public HTTPHeader(HTTPOption option, String value) {
         this.option = option;
         this.value = value;
     }
@@ -19,18 +19,18 @@ public class HTTPHeader {
             this.value = token.nextToken();
             // continue to read while there are tokens because the value may contain ':'
             String tmp;
-            try{
-                while(true){
+            try {
+                while (true) {
                     tmp = token.nextToken();
                     this.value += ':';
                     this.value += tmp;
                 }
             }
-            catch(NoSuchElementException e){
+            catch (NoSuchElementException e) {
                 // end of loop
             }
         }
-        catch(BadOptionException | NoSuchElementException e){
+        catch (BadOptionException | NoSuchElementException e) {
             throw new BadHeaderException();
         }
     }

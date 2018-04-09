@@ -1,3 +1,4 @@
 public class BadColorException extends Exception {
-    public BadColorException(){}
+    public BadColorException() {
+    }
 }

@@ -1,4 +1,5 @@
-public class BadMethodException extends Exception{
+public class BadMethodException extends Exception {
 
-    public BadMethodException(){}
+    public BadMethodException() {
+    }
 }

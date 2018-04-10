@@ -47,16 +47,41 @@ public class HTTPReply extends HTTP {
 
             if (type == FileType.PNG) { // it is an image
             	
+            	
                 if (!ImageIO.write((BufferedImage) body, "png", out)) {
                     throw new IOException();
                 }
             }
             else { // it is not an image and it is thus a string
-                writer.write((String) body);
+            	this.sendInChunks((String)body, writer);
             }
         }
 
         writer.flush();
+    }
+    
+
+    private void sendInChunks(String toSend, BufferedWriter writer) throws IOException {
+
+    	int chunkSize = 128;
+    	String separator = "\r\n";
+    	
+    	int sizeSent = 0 ;
+    	while(toSend.length() > 0) {
+    		
+    		if(toSend.length() >= chunkSize) 
+    			sizeSent = chunkSize;
+    		else
+    			sizeSent = toSend.length();
+    		
+			writer.write(Integer.toHexString(sizeSent) + separator);
+			writer.write(toSend.substring(0, sizeSent) + separator);
+			toSend = toSend.substring(sizeSent);
+
+    	}
+    	
+		writer.write(Integer.toHexString(0) + separator);
+		writer.write(separator);
     }
 
     public void setRet(ReturnCode ret) {
@@ -82,4 +107,7 @@ public class HTTPReply extends HTTP {
     public Object getBody() {
         return body;
     }
+    
+    
 }
+

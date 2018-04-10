@@ -35,7 +35,9 @@ public class HTTPReply extends HTTP {
 
         writer.write("\r\n");
 
+        System.out.println("body?");
         if (body != null) { // write body only if it exists
+            System.out.println("body not null");
             FileType type;
 
             type = FileType.getCorrespondingFileType(headers.get(HTTPOption.CONTENT_TYPE).getValue());
@@ -50,6 +52,7 @@ public class HTTPReply extends HTTP {
                 }
             }
             else { // it is not an image and it is thus a string
+                System.out.println("replyBody = " + (String) body);
                 writer.write((String) body);
             }
         }

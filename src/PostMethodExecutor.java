@@ -9,7 +9,9 @@ public class PostMethodExecutor extends MethodExecutor {
     }
 
     public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException {
-
+    	
+    	System.out.println("Post things");
+    	
         if (!url.equals("/play.html"))
             throw new BadRequestException();
 
@@ -54,7 +56,13 @@ public class PostMethodExecutor extends MethodExecutor {
             //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer
             // replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(replyBody.length() * 4)));
             replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
-            
+            replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+
+            //check for victory/deafeat
+            if(combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES) {
+            	cookie.reset();
+            }
+
             return new HTTPReply(ReturnCode.OK, replyHeaders, replyBody);
         }
         catch (NoSuchElementException | BadFormatException | BadColorException e) {

@@ -32,6 +32,7 @@ public enum HTTPOption {
     LAST_MODIFIED("Last-Modified"),
     LOCATION("Location"),
     MAX_FORWARDS("Max-Forwards"),
+    ORIGIN("Origin"),
     PRAGMA("Pragma"),
     PROXY_AUTHENTICATE("Proxy-Authenticate"),
     PROXY_AUTHORIZATION("Proxy-Authorization"),

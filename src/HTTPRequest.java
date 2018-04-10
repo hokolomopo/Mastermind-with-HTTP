@@ -44,6 +44,7 @@ public class HTTPRequest extends HTTP {
             System.out.println("tmp = " + tmp);
             HTTPHeader tmpHeader;
 
+            
             while (!tmp.isEmpty()) {
                 tmpHeader = new HTTPHeader(tmp);
                 System.out.println("headerOption = " + tmpHeader.getOption().getName());
@@ -59,10 +60,12 @@ public class HTTPRequest extends HTTP {
             if ((content = headers.get(HTTPOption.CONTENT_TYPE)) != null) { // request has a body
 
                 try {
+                	System.out.println(FileType.getCorrespondingFileType(content.getValue()) + " " + FileType.getCorrespondingFileType(content.getValue()).isString());
                     if (!FileType.getCorrespondingFileType(content.getValue()).isString())
                         throw new BadRequestException();
                 }
                 catch (BadFileException e) {
+                	System.out.println("Bad file");
                     throw new BadRequestException();
                 }
 
@@ -89,9 +92,11 @@ public class HTTPRequest extends HTTP {
             }
         }
         catch (IndexOutOfBoundsException | BadHeaderException e) {
+        	System.out.println("Bad things");
             throw new BadRequestException();
         }
         catch (NumberFormatException e) {
+        	System.out.println("Numberformat");
             throw new BadVersionException();
         }
     }

@@ -40,8 +40,7 @@ public class Worker implements Runnable {
 	@Override
 	public void run() {
 		try{
-			html = new HTMLPage();
-			RequestHandler.handleRequest(socket, html);
+			RequestHandler.handleRequest(socket);
 			socket.close();
 		}
 		catch(Exception e){

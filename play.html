@@ -88,7 +88,7 @@ h2.combi{
 
 <div class="usr">
 	<h2 id="usrTitle">User Space</h2>
-	<ul class="usr" class="hideIfJS">
+	<ul class="usr hideIfJS">
 	  <li><img src="white.png" alt="white" class="usr" id="usrImg0" onclick="changeColor(0)"></li>
 	  <li><img src="white.png" alt="white" class="usr" id="usrImg1" onclick="changeColor(1)"></li>
 	  <li><img src="white.png" alt="white" class="usr" id="usrImg2" onclick="changeColor(2)"></li>
@@ -108,7 +108,16 @@ h2.combi{
 
 <script>
 
+var win = 0;
+var loose = 0;
+
 function sendAjax(){
+
+	if(loose == 1 || win == 1){
+		resetPage();
+		loose = 0;
+		win = 0;
+	}
 
 	var toSend ="colors=";
 	for(i = 0;i < 4;i++){
@@ -143,11 +152,35 @@ function sendAjax(){
  				document.getElementById("results"+currentLine+i).src = "white.png";
 			}
 
+			if(tokens[1] == 4){
+				window.alert("Congratulation ! You Won !");
+				win = 1;
+			}
+			else if(tokens[0] == 11){
+				window.alert("Too bad, you lost :'(");
+				loose = 1;
+			}
+
+
 	}
 	};
 	xhttp.open("GET", "/request?" + toSend);
 	xhttp.send(); 
 
+}
+
+function resetPage(){		
+	console.log("resetting...");
+	var color = "empty";
+
+	for (var j = 0; j < 12; j++) {
+		for(var i = 0;i < 4;i++){
+			document.getElementById("game"+j+i).alt = color;
+			document.getElementById("game"+j+i).src = color + ".png";
+			document.getElementById("results"+j+i).alt = color;
+			document.getElementById("results"+j+i).src = color + ".png";
+		}
+	}
 }
 
 function changeColor(x) {

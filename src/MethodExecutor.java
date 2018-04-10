@@ -43,6 +43,10 @@ public abstract class MethodExecutor extends HTTP {
 
     	}
 
+    	System.out.print("Cookie correct combi : ");
+    	for(Colors c : cookie.getRightCombination().getColors())
+    		System.out.print(c + " ");
+    	System.out.println("");
     }
 
 }

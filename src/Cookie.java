@@ -78,4 +78,17 @@ public class Cookie {
 	public int getCurrentTry(){
 		return currentTry;
 	}
+	
+	public void reset() {
+		this.currentTry = 0;
+		
+		for(int i = 0;i < HTMLPage.LIVES;i++) { 
+			this.triedCombi[i] = new Combination();
+		}
+		
+		Combination tmp = new Combination();
+		tmp.setRandomCombi();
+		
+		this.answer = tmp;
+	}
 }

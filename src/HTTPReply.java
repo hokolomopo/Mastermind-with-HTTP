@@ -59,7 +59,15 @@ public class HTTPReply extends HTTP {
                 this.sendInChunks(this.convertToGzipStream(imgStream), out);
             }
             else { // it is not an image and it is thus a string
-            	this.sendInChunks(this.convertToGzipStream((String)body), out);
+            	
+            	if(headers.get(HTTPOption.CONTENT_ENCODING) == null || headers.get(HTTPOption.TRANSFER_ENCODING) == null) {
+            		System.out.println("AJAX");
+            		writer.write((String)body);
+            	}
+            	else {
+            		System.out.println("Normalement");
+            		this.sendInChunks(this.convertToGzipStream((String)body), out);
+            	}
             }
         }
 
@@ -112,7 +120,7 @@ public class HTTPReply extends HTTP {
     	
 		out.write((Integer.toHexString(0) + separator).getBytes());
 		out.write(separator.getBytes());
-
+		out.flush();
     }
 
 

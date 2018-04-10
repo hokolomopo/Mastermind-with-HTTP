@@ -76,11 +76,7 @@ public class HTMLPage {
 		//Set the correct combination
 		correctCombi = new Combination();
 		correctCombi.setRandomCombi();
-		
-		for(Colors c : correctCombi.getColors())
-			System.out.print(c + " ");
-		System.out.println("");
-			
+					
 	}
 	
 	//Return the HTML code of the main list of the game

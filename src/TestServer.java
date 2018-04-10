@@ -15,10 +15,9 @@ public class TestServer {
             System.out.println("test = " + test);
             */
 
-            HTMLPage html = new HTMLPage();
 
             while (true) {
-                RequestHandler.handleRequest(client, html);
+                RequestHandler.handleRequest(client);
             }
         }
         catch (Exception e) {

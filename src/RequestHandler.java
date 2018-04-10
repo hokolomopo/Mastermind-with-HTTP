@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class RequestHandler{
 	
 	
-    public static void handleRequest(Socket sock, HTMLPage page) throws IOException {
+    public static void handleRequest(Socket sock) throws IOException {
 
         HTTPReply rep;
 
@@ -17,9 +17,11 @@ public class RequestHandler{
             System.out.println("got reply");
         }
         catch (BadRequestException e) {
+        	System.out.println("bad request");
             rep = new HTTPReply(ReturnCode.badRequest, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch (BadMethodException e) {
+        	System.out.println("not implemented");
             rep = new HTTPReply(ReturnCode.notImplemented, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch (BadVersionException e) {

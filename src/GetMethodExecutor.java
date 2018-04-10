@@ -66,6 +66,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 ByteArrayOutputStream tmp = new ByteArrayOutputStream();
                 ImageIO.write((BufferedImage) replyBody, "png", tmp);
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(tmp.size())));
+                //replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
             }
             catch (IOException e) {
                 throw new BadRequestException();
@@ -84,7 +85,9 @@ public class GetMethodExecutor extends MethodExecutor {
             replyBody = page.getHtmlCode();
             replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
             //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer
-            replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length() )));
+            //replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length() )));
+            replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
+
         }
         else { // invalid url
             throw new BadRequestException();

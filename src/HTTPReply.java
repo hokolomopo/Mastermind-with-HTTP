@@ -35,7 +35,7 @@ public class HTTPReply extends HTTP {
 
         writer.write("\r\n");
         writer.flush();
-        
+
         if (body != null) { // write body only if it exists
             System.out.println("body not null");
             FileType type;

@@ -2,9 +2,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
+import java.util.zip.GZIPOutputStream;
 
 public class HTTPReply extends HTTP {
-
+	private static final int CHUNCK_SIZE = 128;
+	
     private ReturnCode ret;
     private HashMap<HTTPOption, HTTPHeader> headers;
     private Object body;
@@ -48,13 +50,16 @@ public class HTTPReply extends HTTP {
 
             if (type == FileType.PNG) { // it is an image
             	
+            	ByteArrayOutputStream imgStream = new ByteArrayOutputStream();
             	
-                if (!ImageIO.write((BufferedImage) body, "png", out)) {
+                if (!ImageIO.write((BufferedImage) body, "png", imgStream)) {
                     throw new IOException();
                 }
+                
+                this.sendInChunks(this.convertToGzipStream(imgStream), out);
             }
             else { // it is not an image and it is thus a string
-            	this.sendInChunks((String)body, writer);
+            	this.sendInChunks(this.convertToGzipStream((String)body), out);
             }
         }
 
@@ -62,28 +67,54 @@ public class HTTPReply extends HTTP {
     }
     
 
-    private void sendInChunks(String toSend, BufferedWriter writer) throws IOException {
+    private ByteArrayOutputStream convertToGzipStream(ByteArrayOutputStream s) throws IOException {
 
-    	int chunkSize = 128;
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		GZIPOutputStream gzip = new GZIPOutputStream(stream);
+        gzip.write(s.toByteArray());
+        gzip.close();
+
+		return stream;
+
+    }
+
+    private ByteArrayOutputStream convertToGzipStream(String toSend) throws IOException {
+
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		GZIPOutputStream gzip = new GZIPOutputStream(stream);
+		gzip.write(toSend.getBytes());
+		gzip.close();
+
+		return stream;
+
+    }
+    
+    private void sendInChunks(ByteArrayOutputStream stream, OutputStream out) throws IOException {
     	String separator = "\r\n";
-    	
+
     	int sizeSent = 0 ;
-    	while(toSend.length() > 0) {
-    		
-    		if(toSend.length() >= chunkSize) 
-    			sizeSent = chunkSize;
+    	byte[] b = stream.toByteArray();
+    	
+    	int i = 0;
+    	while(i < b.length) {
+    		if(b.length - i >= CHUNCK_SIZE) 
+    			sizeSent = CHUNCK_SIZE;
     		else
-    			sizeSent = toSend.length();
+    			sizeSent = b.length - i;
     		
-			writer.write(Integer.toHexString(sizeSent) + separator);
-			writer.write(toSend.substring(0, sizeSent) + separator);
-			toSend = toSend.substring(sizeSent);
+    		out.write((Integer.toHexString(sizeSent) + separator).getBytes());
+    		out.write(b, i, sizeSent);
+    		out.write(separator.getBytes());
+    		
+    		i+= sizeSent;
 
     	}
     	
-		writer.write(Integer.toHexString(0) + separator);
-		writer.write(separator);
+		out.write((Integer.toHexString(0) + separator).getBytes());
+		out.write(separator.getBytes());
+
     }
+
 
     public void setRet(ReturnCode ret) {
         this.ret = ret;

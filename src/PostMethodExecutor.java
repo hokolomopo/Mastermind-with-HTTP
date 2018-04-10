@@ -30,7 +30,7 @@ public class PostMethodExecutor extends MethodExecutor {
         StringTokenizer token = new StringTokenizer(requestBody, "=");
         
         try {
-            if(!(token.nextToken().equals("colors")));
+            if(!(token.nextToken().equals("colors")))
                 throw new BadRequestException();
 
             Combination combi = new Combination(token.nextToken());

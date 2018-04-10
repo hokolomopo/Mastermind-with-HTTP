@@ -45,7 +45,7 @@ public class HTTPReply extends HTTP {
             }
 
             if (type == FileType.PNG) { // it is an image
-                if (!ImageIO.write((BufferedImage) body, "png", out)) {
+                if (!ImageIO.write((BufferedImage) body, "PNG", out)) {
                     throw new IOException();
                 }
             }

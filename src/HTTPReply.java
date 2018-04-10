@@ -45,9 +45,9 @@ public class HTTPReply extends HTTP {
             }
 
             if (type == FileType.PNG) { // it is an image
-                if (!ImageIO.write((BufferedImage) body, "PNG", out)) {
+                out.flush();
+                if (!ImageIO.write((BufferedImage) body, "PNG", out))
                     throw new IOException();
-                }
             }
             else { // it is not an image and it is thus a string
                 writer.write((String) body);

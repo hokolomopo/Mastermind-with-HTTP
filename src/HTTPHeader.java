@@ -15,15 +15,16 @@ public class HTTPHeader {
     public HTTPHeader(String header) throws BadHeaderException {
         try {
             StringTokenizer token = new StringTokenizer(header, ":");
-            this.option = HTTPOption.getCorrespondingOption(token.nextToken());
-            this.value = token.nextToken();
+            option = HTTPOption.getCorrespondingOption(token.nextToken());
+            value = token.nextToken();
+            value = value.trim(); // remove spaces at the beginning
             // continue to read while there are tokens because the value may contain ':'
             String tmp;
             try {
                 while (true) {
                     tmp = token.nextToken();
-                    this.value += ':';
-                    this.value += tmp;
+                    value += ':';
+                    value += tmp;
                 }
             }
             catch (NoSuchElementException e) {

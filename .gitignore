@@ -3,6 +3,10 @@
 
 ### Eclipse ###
 
+.idea
+test
+out
+
 .metadata
 bin/
 tmp/

@@ -34,7 +34,8 @@ public class HTTPReply extends HTTP {
         }
 
         writer.write("\r\n");
-
+        writer.flush();
+        
         if (body != null) { // write body only if it exists
             FileType type;
 
@@ -45,6 +46,7 @@ public class HTTPReply extends HTTP {
             }
 
             if (type == FileType.PNG) { // it is an image
+            	
                 if (!ImageIO.write((BufferedImage) body, "png", out)) {
                     throw new IOException();
                 }

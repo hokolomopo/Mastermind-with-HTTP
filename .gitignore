@@ -3,9 +3,9 @@
 
 ### Eclipse ###
 
-.idea
-test
-out
+.idea/*
+test/*
+out/*
 
 .metadata
 bin/

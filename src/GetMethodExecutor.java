@@ -72,7 +72,7 @@ public class GetMethodExecutor extends MethodExecutor {
             }
         }
         else if (url.equals("/") || url.equals("/page.html")) { // it is the page
-        	HTMLPage page = null;;
+        	HTMLPage page = null;
         	
 			try {
 				page = new HTMLPage();

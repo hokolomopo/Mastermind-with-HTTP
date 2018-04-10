@@ -77,6 +77,8 @@ public class HTTPRequest extends HTTP {
                     for (int i = 0; i < length; i++) {
                         body += reader.read();
                     }
+
+                    System.out.println("request body = " + body);
                 }
                 catch (NumberFormatException e) {
                     throw new BadRequestException();

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -34,15 +35,25 @@ public class PostMethodExecutor extends MethodExecutor {
 
             Combination combi = new Combination(token.nextToken());
             combi.evaluate(this.cookie.getRightCombination());
+            this.cookie.addTry(combi);
 
-            String body = combi.getResults()[0] + " + " + combi.getResults()[1];
+            HTMLPage page = null;
+            try {
+                page = new HTMLPage();
+            } catch (IOException e) {
+                throw new BadRequestException();
+            }
+
+            this.cookie.setUpHTMLPage(page);
+
+            String replyBody = page.getHtmlCode();
 
             replyHeaders.put(HTTPOption.DATE, new HTTPHeader(HTTPOption.DATE, getServerTime()));
             replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.URL.getContentType()));
             //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer
-            replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(body.length() * 4)));
+            replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(replyBody.length() * 4)));
 
-            return new HTTPReply(ReturnCode.OK, replyHeaders, body);
+            return new HTTPReply(ReturnCode.OK, replyHeaders, replyBody);
         }
         catch (NoSuchElementException | BadFormatException | BadColorException e) {
             throw new BadRequestException();

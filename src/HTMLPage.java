@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HTMLPage {
 	
@@ -48,7 +50,7 @@ public class HTMLPage {
 	
 	//Constructor will throw a IOExcpetion if the HTML file of the static field HTML_FILE isn't found
 	public HTMLPage() throws IOException {
-		reader = new BufferedReader(new FileReader(HTML_FILE));
+		reader = new BufferedReader(new InputStreamReader(new FileInputStream(HTML_FILE), "UTF-8"));
 
 		for(int i = 0;i < LIVES;i++) { 
 			triedCombi[i] = new Combination();

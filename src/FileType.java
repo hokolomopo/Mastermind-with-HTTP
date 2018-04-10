@@ -4,7 +4,7 @@
  */
 
 public enum FileType {
-    HTML("text/html", true),
+    HTML("text/html ;charset=utf-8", true),
     PNG("image/png", false),
     URL("application/x-www-form-urlencoded", true);
 

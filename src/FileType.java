@@ -3,7 +3,9 @@
  * used in mastermind project
  */
 
+//Todo: utilise on encore le isString ?
 public enum FileType {
+    TEXT("text/plain;base64", true),
     HTML("text/html", true),
     PNG("image/png", false),
     URL("application/x-www-form-urlencoded", true);

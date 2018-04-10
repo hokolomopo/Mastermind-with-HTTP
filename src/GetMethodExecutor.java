@@ -61,7 +61,7 @@ public class GetMethodExecutor extends MethodExecutor {
         else if (url.endsWith(".png")) { // it is an image
             try {
                 replyBody = ImageIO.read(new File(url.substring(1)));
-                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.PNG.getContentType()));
+                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.TEXT.getContentType()));
 
                 //compute image file size
                 ByteArrayOutputStream tmp = new ByteArrayOutputStream();

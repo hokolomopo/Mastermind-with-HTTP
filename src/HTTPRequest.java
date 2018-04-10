@@ -75,7 +75,7 @@ public class HTTPRequest extends HTTP {
                     int length = Integer.parseInt(tmp); // Todo: length en byte ou en char?
                     body = new String();
                     for (int i = 0; i < length; i++) {
-                        body += reader.read();
+                        body += (char)reader.read();
                     }
 
                     System.out.println("request body = " + body);

@@ -10,7 +10,7 @@ public class PostMethodExecutor extends MethodExecutor {
 
     public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException {
 
-        if (!url.equals("/page/html"))
+        if (!url.equals("/page.html"))
             throw new BadRequestException();
 
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();

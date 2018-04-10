@@ -22,10 +22,6 @@ public abstract class MethodExecutor extends HTTP {
     	}
     	else {
         	String headerValue = cookieHeader.getValue();
-        	
-	    	//Check if ther's useless spaces at the start and delete them
-	    	while(headerValue.startsWith(" "))
-	    		headerValue = headerValue.substring(1);
 
 	    	this.cookie = WebServer.getCookie(headerValue);
     		

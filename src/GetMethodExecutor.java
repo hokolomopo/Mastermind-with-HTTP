@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 
 public class GetMethodExecutor extends MethodExecutor {
@@ -66,6 +67,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 ByteArrayOutputStream tmp = new ByteArrayOutputStream();
                 ImageIO.write((BufferedImage) replyBody, "png", tmp);
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(tmp.size())));
+                replyBody = Base64.getEncoder().encodeToString(tmp.toByteArray());
             }
             catch (IOException e) {
                 throw new BadRequestException();

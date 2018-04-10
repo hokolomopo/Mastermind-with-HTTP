@@ -46,7 +46,7 @@ public class HTMLPage {
 	
 	private int currentTry = 0;
 	
-	//Constructor will throw a IOExcpetion if the HTML file of the static field HTML_FILE isn't found
+	//Constructor will throw a IOException if the HTML file of the static field HTML_FILE isn't found
 	public HTMLPage() throws IOException {
 		reader = new BufferedReader(new FileReader(HTML_FILE));
 

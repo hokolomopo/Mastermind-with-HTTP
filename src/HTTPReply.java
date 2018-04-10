@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Base64;
 import java.util.HashMap;
 
 public class HTTPReply extends HTTP {
@@ -44,10 +45,9 @@ public class HTTPReply extends HTTP {
                 throw new OptionNotPresentException();
             }
 
-            if (type == FileType.PNG) { // it is an image
-                if (!ImageIO.write((BufferedImage) body, "png", out)) {
-                    throw new IOException();
-                }
+            if (type == FileType.PNG) { // it is an image, body is an ByteArrayOutStream
+                System.out.println("image code = " + (String)body);
+                writer.write(((String) body));
             }
             else { // it is not an image and it is thus a string
                 writer.write((String) body);

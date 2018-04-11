@@ -81,7 +81,7 @@ public class Combination {
                 //Count correct but wrong place
             else
                 for (int j = 0; j < COMBI_LENGTH; j++)
-                    if (this.combi[i] == comparison.getColors()[j]) {
+                    if (this.combi[j] == comparison.getColors()[i]) {
                         this.results[1]++;
                         break;
                     }

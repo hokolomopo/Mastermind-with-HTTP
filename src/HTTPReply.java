@@ -23,6 +23,8 @@ public class HTTPReply extends HTTP {
         this.body = null;
     }
 
+    protected HTTPReply(){}
+
     public void reply(OutputStream out) throws IOException, OptionNotPresentException, BadFileException {
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));

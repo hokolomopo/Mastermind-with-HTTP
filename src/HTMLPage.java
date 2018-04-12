@@ -8,7 +8,7 @@ public class HTMLPage {
 	
 	//HTML file that will be parsed
 	//Need a string "GAMETOKEN" to be in it to get the place where we want to put the HTML code of the game
-	private static final String HTML_FILE = "play.html";
+	public static final String HTML_FILE = "play.html";
 
 	public static final int LIVES = 12;
 	

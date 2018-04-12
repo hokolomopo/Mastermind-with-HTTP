@@ -18,6 +18,10 @@ public class GetMethodExecutor extends MethodExecutor {
         if (url.charAt(0) != '/')
             throw new BadRequestException();
 
+        if(url.equals("/")){
+            return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
+        }
+
         HashMap<HTTPOption, HTTPHeader> replyHeaders = new HashMap<HTTPOption, HTTPHeader>();
         Object replyBody;
 
@@ -48,6 +52,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 int[] results = testedCombi.getResults();
                 
                 replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
+                // Todo: chunck?
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length())));
                 
@@ -80,7 +85,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 throw new BadRequestException();
             }
         }
-        else if (url.equals("/") || url.equals("/page.html")) { // it is the page
+        else if (url.equals("/" + HTMLPage.HTML_FILE)) { // it is the page
         	HTMLPage page = null;
         	
 			try {

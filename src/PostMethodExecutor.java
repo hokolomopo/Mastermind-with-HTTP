@@ -36,8 +36,6 @@ public class PostMethodExecutor extends MethodExecutor {
                 throw new BadRequestException();
 
             Combination combi = new Combination(token.nextToken());
-            combi.evaluate(this.cookie.getRightCombination());
-            this.cookie.addTry(combi);
 
             HTMLPage page = null;
             try {
@@ -45,6 +43,13 @@ public class PostMethodExecutor extends MethodExecutor {
             } catch (IOException e) {
                 throw new BadRequestException();
             }
+
+            if(this.cookie.isDuplicate(combi)){
+                return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
+            }
+
+            combi.evaluate(this.cookie.getRightCombination());
+            this.cookie.addTry(combi);
 
             this.cookie.setUpHTMLPage(page);
 

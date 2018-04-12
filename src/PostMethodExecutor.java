@@ -8,12 +8,12 @@ public class PostMethodExecutor extends MethodExecutor {
     public PostMethodExecutor() {
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException {
     	
     	System.out.println("Post things");
     	
         if (!url.equals("/play.html"))
-            throw new BadRequestException();
+            throw new NotFoundException();
 
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();
     

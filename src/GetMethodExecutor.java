@@ -13,10 +13,10 @@ public class GetMethodExecutor extends MethodExecutor {
     public GetMethodExecutor() {
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String requestBody) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String requestBody) throws BadRequestException, NotFoundException {
 
         if (url.charAt(0) != '/')
-            throw new BadRequestException();
+            throw new NotFoundException();
 
         if(url.equals("/")){
             return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
@@ -104,7 +104,7 @@ public class GetMethodExecutor extends MethodExecutor {
 
         }
         else { // invalid url
-            throw new BadRequestException();
+            throw new NotFoundException();
         }
 
         return new HTTPReply(ReturnCode.OK, replyHeaders, replyBody);

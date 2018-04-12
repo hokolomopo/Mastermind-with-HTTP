@@ -3,7 +3,7 @@ import java.util.HashMap;
 public abstract class MethodExecutor extends HTTP {
 	protected Cookie cookie;
 	
-    public abstract HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException;
+    public abstract HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException;
 
     protected void manageCookies(HashMap<HTTPOption, HTTPHeader> requestHeaders, HashMap<HTTPOption, HTTPHeader> replyHeaders) {
     	//Get a cookie header if any

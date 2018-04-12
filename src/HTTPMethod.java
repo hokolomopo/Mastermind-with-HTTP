@@ -15,7 +15,7 @@ public enum HTTPMethod {
         this.exec = exec;
     }
 
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException {
         return exec.process(url, headers, requestBody);
     }
 

@@ -29,6 +29,10 @@ public class RequestHandler{
             body[0] = "The only supported version is " + HTTP.HTTP_VERSION; //Todo: mettre juste la version et pas de message?
             rep = new HTTPReply(ReturnCode.HTTP_VERSION_NOT_SUPPORTED, new HashMap<HTTPOption, HTTPHeader>(), body);
         }
+        catch (NotFoundException e){
+            System.out.println("Not found");
+            rep = new HTTPReply(ReturnCode.NOT_FOUND, new HashMap<HTTPOption, HTTPHeader>());
+        }
 
         try {
             rep.reply(sock.getOutputStream());

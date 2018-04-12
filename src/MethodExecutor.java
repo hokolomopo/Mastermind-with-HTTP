@@ -36,11 +36,6 @@ public abstract class MethodExecutor extends HTTP {
         		WebServer.addCookie(this.cookie);
         		System.out.println("Cookie id = " + this.cookie.getId());
     		}
-    		else {
-        		System.out.println("Cookie found id = " + this.cookie.getId());
-        		WebServer.addCookie(this.cookie);
-    		}
-
     	}
 
     	System.out.print("Cookie correct combi : ");

@@ -88,6 +88,16 @@ public class Combination {
         }
     }
 
+    public boolean equals(Combination tested){
+        Colors[] testedCombi = tested.getColors();
+        for(int i = 0; i < testedCombi.length; i++){
+            if(testedCombi[i] != combi[i])
+                return false;
+        }
+
+        return true;
+    }
+
     public Colors[] getColors() {
         return combi;
     }

@@ -48,6 +48,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 int[] results = testedCombi.getResults();
                 
                 replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
+                // Todo: chunck?
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length())));
                 

@@ -7,9 +7,9 @@ import java.util.zip.GZIPOutputStream;
 public class HTTPReply extends HTTP {
 	private static final int CHUNCK_SIZE = 128;
 	
-    private ReturnCode ret;
-    private HashMap<HTTPOption, HTTPHeader> headers;
-    private Object body;
+    protected ReturnCode ret;
+    protected HashMap<HTTPOption, HTTPHeader> headers;
+    protected Object body;
 
     public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers, Object body) {
         this.ret = ret;

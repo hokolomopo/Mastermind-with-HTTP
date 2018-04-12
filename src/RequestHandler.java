@@ -18,16 +18,16 @@ public class RequestHandler{
         }
         catch (BadRequestException e) {
         	System.out.println("bad request");
-            rep = new HTTPReply(ReturnCode.badRequest, new HashMap<HTTPOption, HTTPHeader>());
+            rep = new HTTPReply(ReturnCode.BAD_REQUEST, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch (BadMethodException e) {
         	System.out.println("not implemented");
-            rep = new HTTPReply(ReturnCode.notImplemented, new HashMap<HTTPOption, HTTPHeader>());
+            rep = new HTTPReply(ReturnCode.NOT_IMPLEMENTED, new HashMap<HTTPOption, HTTPHeader>());
         }
         catch (BadVersionException e) {
             String[] body = new String[1];
             body[0] = "The only supported version is " + HTTP.HTTP_VERSION; //Todo: mettre juste la version et pas de message?
-            rep = new HTTPReply(ReturnCode.HTTPVersionNotSupported, new HashMap<HTTPOption, HTTPHeader>(), body);
+            rep = new HTTPReply(ReturnCode.HTTP_VERSION_NOT_SUPPORTED, new HashMap<HTTPOption, HTTPHeader>(), body);
         }
 
         try {

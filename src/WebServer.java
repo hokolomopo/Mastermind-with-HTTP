@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -10,22 +11,28 @@ public class WebServer {
     private static ArrayList<Cookie> cookies = new ArrayList<Cookie>();
 
     @SuppressWarnings("resource")
-    public static void main(String[] args) throws Exception {
-        int i = 0;
+    public static void main(String[] args) {
+        try
+        {
+            int i = 0;
 
-        ServerSocket serverSocket = new ServerSocket(port);
-        System.err.println("Serveur lanced sur le port : " + port);
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+            ServerSocket serverSocket = new ServerSocket(port);
+            System.err.println("Serveur lanced sur le port : " + port);
+            ExecutorService executorService = Executors.newFixedThreadPool(1);
 
-        // repeatedly wait for connections, and process
-        while (true) {
+            // repeatedly wait for connections, and process
+            while (true)
+            {
 
-            Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept();
 
-            executorService.submit(new Worker(i++, clientSocket));
-            System.err.println("New client connected");
+                executorService.submit(new Worker(i++, clientSocket));
+                System.err.println("New client connected");
 
-
+            }
+        }
+        catch(IOException e){
+            System.err.println("socket error, ending the program");
         }
 
     }

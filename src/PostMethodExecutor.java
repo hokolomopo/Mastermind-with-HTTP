@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -8,15 +7,24 @@ public class PostMethodExecutor extends MethodExecutor {
     public PostMethodExecutor() {
     }
 
+    /*
+     * Manage HTTP reply to a POST method and update the cookie of the client
+     * 
+     * The body of the POST request is expected to have this format : 'colors=red+yellow+blue+black'
+     * 
+     * Returns a HTTPReply object suitable for the message receiver
+     * 
+     * Throws BadRequestException if :
+     * 	-The HTTP header isn't as expected
+     * 	-The request body isn't formatted correctly
+     * 	-Colors are spelled wrong
+     */
     public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException {
-    	
-    	System.out.println("Post things");
-    	
+    	    	
         if (!url.equals("/play.html"))
             throw new NotFoundException();
 
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();
-    
 
         try {
             if (type == null || FileType.getCorrespondingFileType(type) != FileType.URL)
@@ -32,6 +40,7 @@ public class PostMethodExecutor extends MethodExecutor {
         StringTokenizer token = new StringTokenizer(requestBody, "=");
         
         try {
+        	//Check
             if(!(token.nextToken().equals("colors")))
                 throw new BadRequestException();
 
@@ -40,7 +49,7 @@ public class PostMethodExecutor extends MethodExecutor {
             combi.evaluate(this.cookie.getRightCombination());
             this.cookie.addTry(combi);
 
-            //check for victory/deafeat
+            //Check for victory/defeat
             if(combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES) {
             	cookie.reset();
             }
@@ -48,8 +57,8 @@ public class PostMethodExecutor extends MethodExecutor {
         catch (NoSuchElementException | BadFormatException | BadColorException e) {
             //invalid request, do not add.
         }
-        finally{
-            return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
-        }
+        
+        return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
+        
     }
 }

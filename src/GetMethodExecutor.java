@@ -1,6 +1,4 @@
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,8 +6,6 @@ import java.util.HashMap;
 public class GetMethodExecutor extends MethodExecutor {
 
 	
-    //Todo: gérer les requêtes favicon
-    //Todo: gérer la possibilité de set des paramètres dans l'url
     public GetMethodExecutor() {
     }
 
@@ -52,7 +48,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 int[] results = testedCombi.getResults();
                 
                 replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
-                // Todo: chunck?
+
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
                 replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String)replyBody).length())));
                 
@@ -71,14 +67,8 @@ public class GetMethodExecutor extends MethodExecutor {
                 replyBody = ImageIO.read(new File(url.substring(1)));
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.PNG.getContentType()));
 
-                //compute image file size
-                //ByteArrayOutputStream tmp = new ByteArrayOutputStream();
-                //ImageIO.write((BufferedImage) replyBody, "png", tmp);
-                //replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(tmp.size())));
                 replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
                 replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
-
-                replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Sat, 01 Jan 2100 00:59:59 GMT"));
 
             }
             catch (IOException e) {
@@ -97,8 +87,6 @@ public class GetMethodExecutor extends MethodExecutor {
         	this.cookie.setUpHTMLPage(page);
             replyBody = page.getHtmlCode();
             replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
-            //Todo: la ligne en dessous est de la grosse merde juste en attendant de faire chunck encoding car ca va surement changer
-            //replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length() )));
             replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
             replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
 

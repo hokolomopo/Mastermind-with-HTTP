@@ -7,13 +7,24 @@ public abstract class HTTP {
     protected static final float HTTP_VERSION = 1.1f;
 
     //Return the time in the HTTP format
-    protected static String getServerTime() {
+    public static String getServerTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         return dateFormat.format(calendar.getTime());
     }
+    
+    //Get the server time + the argument (in minute) in in the HTTP format 
+    public static String getServerTime(int offsetInMinutes) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        calendar.add(Calendar.MINUTE, offsetInMinutes);
+        return dateFormat.format(calendar.getTime());
+    }
+
 
     public static float getVersion() {
         return HTTP_VERSION;

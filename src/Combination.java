@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Combination {
@@ -34,17 +36,25 @@ public class Combination {
      * Throw IOException if string isn't of expected format or if a color doesn't exist
      */
     public void setCombi(String s) throws BadFormatException, BadColorException {
-
+    	System.out.println("what the fuck");
         //Cut the string into the colors
-        String[] colors = s.split("\\+");
-
+        ArrayList<String> colors = new ArrayList<String>(Arrays.asList(s.split("\\+")));
+        
+        //Remove empty Strings
+        for(int i = 0;i < colors.size();i++)
+        	if(colors.get(i).length() == 0)
+        		colors.remove(i--);
+        
         //Check if we have the right amount of colors
-        if (colors.length != COMBI_LENGTH)
+        if (colors.size() != COMBI_LENGTH)
             throw new BadFormatException();
 
         //Transform the Strings into Colors
         for (int i = 0; i < COMBI_LENGTH; i++) {
-            combi[i] = Colors.getColor(colors[i]);
+        	
+        	System.out.print(colors.get(i) + " ");
+        	
+            combi[i] = Colors.getColor(colors.get(i));
 
             //Throws exception if it was a bas color name
             if (combi[i] == Colors.EMPTY)

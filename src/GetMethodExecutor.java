@@ -62,7 +62,7 @@ public class GetMethodExecutor extends MethodExecutor {
                 }
             }
             catch(BadFormatException | BadColorException e){
-                throw new BadRequestException();
+                return new HTTPRedirectionReply(HTMLPage.HTML_FILE); // invalid combination -> get back to the page
             }
         }
 

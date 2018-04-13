@@ -44,11 +44,12 @@ public class PostMethodExecutor extends MethodExecutor {
             if(combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES) {
             	cookie.reset();
             }
-
-            return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
         }
         catch (NoSuchElementException | BadFormatException | BadColorException e) {
-            throw new BadRequestException();
+            //invalid request, do not add.
+        }
+        finally{
+            return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
         }
     }
 }

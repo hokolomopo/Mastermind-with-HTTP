@@ -87,7 +87,7 @@ public class Combination {
                     }
         }
     }
-    
+
     public Colors[] getColors() {
         return combi;
     }

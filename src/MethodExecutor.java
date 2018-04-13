@@ -4,7 +4,7 @@ import java.util.HashMap;
 public abstract class MethodExecutor extends HTTP {
 	
 	//Duration of cookie (in minutes)
-	private final static int COOKIE_DURATION = 1;
+	private final static int COOKIE_DURATION = 10;
 	
 	protected Cookie cookie;
 	
@@ -51,7 +51,7 @@ public abstract class MethodExecutor extends HTTP {
     			//Check if cookie hasn't lived past it's expiration date, reset if if it has
     			Calendar currentTime = Calendar.getInstance();
     			currentTime.add(Calendar.MINUTE, - COOKIE_DURATION);
-    			if(cookie.getCreationTime().after(currentTime)) 
+    			if(cookie.getCreationTime().before(currentTime)) 
     				cookie.reset();
     		}
     	}

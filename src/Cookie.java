@@ -57,13 +57,6 @@ public class Cookie {
 			page.setNexCombination(c);
 		}
 	}
-
-	public boolean isDuplicate(Combination combi){
-		if(currentTry == 0)
-			return false;
-
-		return triedCombi[currentTry - 1].equals(combi);
-	}
 	
 	public void setCorrectCombination(Combination combi) {
 		this.answer = combi;

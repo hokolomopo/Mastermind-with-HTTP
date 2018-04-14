@@ -1,19 +1,28 @@
 import java.util.Calendar;
 import java.util.Random;
 
+/**
+ * class representing a cookie holding a mastermind game state
+ */
 public class Cookie {
 	private final static int COOKIE_LENGTH = 10;
 	
 	private final static String COOKIE_TYPE = "SESSID";
-	
+
+	//game state
 	private Combination answer;
 	private Combination[] triedCombi;
+    private int currentTry = 0;
+
+	//cookie id
 	private String id;
+
 	Calendar creationTime = Calendar.getInstance();
-	
-	private int currentTry = 0;
-	
-	//Create a new cookie with the given combination and a random id
+
+    /**
+     * Create a new cookie with the given combination and a random id
+     * @param rightCombi the secret combination of the game holded by this cookie
+     */
 	public Cookie(Combination rightCombi) {
 		this.generateId();
 		
@@ -26,8 +35,12 @@ public class Cookie {
 		this.answer = rightCombi;
 		
 	}
-	
-	//Create a new cookie with the given combination and the given id
+
+    /**
+     * Create a new cookie with the given combination and the given id
+     * @param rightCombi the secret combination of the game holded by this cookie
+     * @param id the cookie's id
+     */
 	public Cookie(Combination rightCombi, String id) {
 		this.id = id;
 		
@@ -40,8 +53,10 @@ public class Cookie {
 		this.answer = rightCombi;
 
 	}
-	
-	//Generate a random ID
+
+    /**
+     * Generate a random ID
+     */
 	private void generateId() {
 		Random rand = new Random();
 		int tmp = rand.nextInt((int)Math.pow(10, COOKIE_LENGTH));
@@ -52,8 +67,11 @@ public class Cookie {
 	public String getId() {
 		return this.id;
 	}
-	
-	//Setup an HTML page with the combinations stored in the cookie
+
+    /**
+     * Setup an HTML page with the combinations stored in the cookie
+     * @param page the page to be modified
+     */
 	public void setUpHTMLPage(HTMLPage page) {
 		
 		page.setCorrectCombination(this.answer);
@@ -62,8 +80,11 @@ public class Cookie {
 			page.setNexCombination(c);
 		}
 	}
-	
-	//Set the correct combination for the cookie
+
+    /**
+     * Set the correct combination for the cookie
+     * @param combi the secret combination of the game holded by this cookie
+     */
 	public void setCorrectCombination(Combination combi) {
 		this.answer = combi;
 		
@@ -71,8 +92,11 @@ public class Cookie {
 			triedCombi[i] = new Combination();
 		}
 	}
-	
-	//Add a combination tried by the client
+
+    /**
+     * Add a combination tried by the client
+     * @param combi the combination to be added
+     */
 	public void addTry(Combination combi) {
 		this.triedCombi[currentTry] = combi;
 		currentTry++;
@@ -81,13 +105,18 @@ public class Cookie {
 	public Combination getRightCombination() {
 		return answer;
 	}
-	
-	//Get number of try that the client has executed on this cookie
+
+    /**
+     * Get number of try that the client has executed on this cookie
+     * @return the number of try that the client has executed on this cookie
+     */
 	public int getCurrentTry(){
 		return currentTry;
 	}
-	
-	//Reset the cookie
+
+    /**
+     * reset the cookie
+     */
 	public void reset() {
 		this.currentTry = 0;
 		this.creationTime = Calendar.getInstance();

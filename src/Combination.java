@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * class representing a mastermind's combination
+ */
 public class Combination {
     public static final int COMBI_LENGTH = 4;
 
@@ -22,6 +25,14 @@ public class Combination {
             combi[i] = Colors.EMPTY;
     }
 
+    /**
+     * create a combination based on a string containing the colors of the combination,
+     * the results are set to 0
+     * @param s the string representing the colors of the combination, formatted this way:
+     *          "color1+color2+color3+color4"
+     * @throws BadFormatException in case s is ill formatted
+     * @throws BadColorException in case a color which is not part of mastermind's color is entered
+     */
     public Combination(String s) throws BadFormatException, BadColorException {
         for (int i = 0; i < results.length; i++)
             results[i] = 0;
@@ -29,11 +40,11 @@ public class Combination {
         setCombi(s);
     }
 
-    /*
-     * Set the combination to the argument string
-     * String must have the format : "color1+color2+color3+color4"
-     *
-     * Throw IOException if string isn't of expected format or if a color doesn't exist
+    /**
+     * Set the combination according to the argument string
+     * @param s String representing the colors that must have the format : "color1+color2+color3+color4"
+     * @throws BadFormatException in case s is ill formatted
+     * @throws BadColorException in case a color which is not part of mastermind's color is entered
      */
     public void setCombi(String s) throws BadFormatException, BadColorException {
     	System.out.println("what the fuck");
@@ -62,7 +73,9 @@ public class Combination {
         }
     }
 
-    //Set the combination to a random combination
+    /**
+     * Set the combination to a random combination
+     */
     public void setRandomCombi() {
         Random rand = new Random();
 
@@ -72,9 +85,10 @@ public class Combination {
         }
     }
 
-    /*
+    /**
      * Compare the combination to another combination and put the
      * results (good color wrong place/good color right place) in the results field of this class
+     * @param comparison the combination this combination is compared to
      */
     public void evaluate(Combination comparison) {
 

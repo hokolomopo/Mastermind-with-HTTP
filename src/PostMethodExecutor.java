@@ -19,6 +19,15 @@ public class PostMethodExecutor extends MethodExecutor {
      * 	-The request body isn't formatted correctly
      * 	-Colors are spelled wrong
      */
+    /**
+     * process the post request in order to build the appropriate reply.
+     * @param url the url of the post request
+     * @param headers the headers of the post request
+     * @param requestBody the body of the post request
+     * @return the appropriate reply held by a HTTPReply object
+     * @throws BadRequestException in case the request is not valid
+     * @throws NotFoundException in case the url does not correspond to an existing page
+     */
     public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException {
     	    	
         if (!url.equals("/play.html"))

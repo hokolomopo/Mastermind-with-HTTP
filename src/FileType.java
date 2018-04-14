@@ -25,7 +25,7 @@ public enum FileType {
     }
 
     /**
-     * return the FileType object whose name correspond to the string ien in argument
+     * return the FileType object whose name correspond to the string given as argument
      *
      * @param contentType the name of the searched FileType
      * @return

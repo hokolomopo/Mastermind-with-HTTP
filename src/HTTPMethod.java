@@ -1,11 +1,15 @@
 import java.util.HashMap;
 
+/**
+ * enumeration holding the different method of the http protocol
+ */
 public enum HTTPMethod {
 
     GET("GET", new GetMethodExecutor()),
     POST("POST", new PostMethodExecutor()),
     HEAD("HEAD", new HeadMethodExecutor());
 
+    //the executor associated to the method, this is what describe the behaviour of the method
     private MethodExecutor exec;
 
     private String name;

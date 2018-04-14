@@ -3,6 +3,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * class representing an html page of mastermind game
+ */
 public class HTMLPage {
 	
 	//HTML file that will be parsed
@@ -14,7 +17,11 @@ public class HTMLPage {
 	private final static String tab = "\t";
 	private final static String endl = "\n";
 
-	//Enum for CSS class ID of the HTML files
+
+
+    /**
+     * Enum for CSS class ID of the HTML files
+     */
 	private enum ul {
 		RESULTS("results"),
 		GAME("game"),
@@ -46,8 +53,11 @@ public class HTMLPage {
 	private String tailString = "";
 	
 	private int currentTry = 0;
-	
-	//Constructor will throw a IOExcpetion if the HTML file of the static field HTML_FILE isn't found
+
+    /**
+     * constructor
+     * @throws IOException in case the HTML file of the static field HTML_FILE isn't found
+     */
 	public HTMLPage() throws IOException {
 		reader = new BufferedReader(new InputStreamReader(new FileInputStream(HTML_FILE), "UTF-8"));
 
@@ -77,8 +87,11 @@ public class HTMLPage {
 		correctCombi.setRandomCombi();
 					
 	}
-	
-	//Return the HTML code of the main list of the game
+
+    /**
+     * get the HTML code of the main list of the game
+     * @return the HTML code of the main list of the game
+     */
 	private String createGameUL() {
 		String ret = tab + "<ul class=\""+ ul.GAME.id +"\">" + endl;
 		
@@ -93,7 +106,11 @@ public class HTMLPage {
 		return ret;
 	}
 
-	//Return the HTML code of an horizontal list of the game
+    /**
+     * get the HTML code of an horizontal list of the game
+     * @param row
+     * @return the HTML code of an horizontal list of the game
+     */
 	private String createHorizontalUL(int row) {
 		String ret = tab + tab + tab + "<ul class=\""+ ul.LINE.id +"\">" + endl;
 		
@@ -121,8 +138,15 @@ public class HTMLPage {
 		
 		return ret;
 	}
-	
-	//Return the HTML for a list element of the game
+
+    /**
+     * get the HTML for a list element of the game
+     * @param type
+     * @param c
+     * @param row
+     * @param col
+     * @return the HTML for a list element of the game
+     */
 	private String createLI(ul type, Colors c, int row, int col) {
 		String ret = tab + tab + tab + tab + "<li class=\""+type.id+" line\">";
 		ret += "<img id=\""+ type.id + row + col +"\" src=\""+ c.getImagePath() +"\" alt=\""+ c.getName() + "\" class=\""+ type.id +"\">";
@@ -131,12 +155,18 @@ public class HTMLPage {
 		return ret;
 	}
 
-	//Return the HTML code to send to the client
+    /**
+     * get the HTML code of the page
+     * @return the HTML code of the page
+     */
 	public String getHtmlCode() {
 		return headString + body + tailString;
 	}
-	
-	//Set the next combination that was send by the client
+
+    /**
+     * set the next combination
+     * @param combi the combination to be set as next combination
+     */
 	public void setNexCombination(Combination combi) {
 		triedCombi[currentTry] = combi;
 		triedCombi[currentTry].evaluate(correctCombi);
@@ -144,16 +174,21 @@ public class HTMLPage {
 		
 		currentTry++;
 	}
-	
-	//Set the correct combination
+
+    /**
+     * set the correct combination
+     * @param combi the correct combination to be set
+     */
 	public void setCorrectCombination(Combination combi) {
 		this.resetPage();
 		
 		this.correctCombi = combi;
 		
 	}
-	
-	//Reset the combinations of the page
+
+    /**
+     * Reset the combinations of the page
+     */
 	public void resetPage() {
 		for(int i = 0;i < LIVES;i++) { 
 			triedCombi[i] = new Combination();

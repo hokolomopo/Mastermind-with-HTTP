@@ -3,10 +3,16 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/**
+ * class holding some general information/method about the HTP protocol
+ */
 public abstract class HTTP {
     protected static final float HTTP_VERSION = 1.1f;
 
-    //Return the time in the HTTP format
+    /**
+     * get the time in the HTTP format
+     * @return the time in the HTTP format
+     */
     public static String getServerTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -14,8 +20,12 @@ public abstract class HTTP {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         return dateFormat.format(calendar.getTime());
     }
-    
-    //Get the server time + the argument (in minute) in in the HTTP format 
+
+    /**
+     * Get the server time + the argument (in minute) in in the HTTP format
+     * @param offsetInMinutes
+     * @return
+     */
     public static String getServerTime(int offsetInMinutes) {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat(

@@ -108,7 +108,7 @@ public class HTMLPage {
 
     /**
      * get the HTML code of an horizontal list of the game
-     * @param row
+     * @param row the row of the current list element
      * @return the HTML code of an horizontal list of the game
      */
 	private String createHorizontalUL(int row) {
@@ -141,10 +141,10 @@ public class HTMLPage {
 
     /**
      * get the HTML for a list element of the game
-     * @param type
-     * @param c
-     * @param row
-     * @param col
+     * @param type the type of unordered HTML list
+     * @param c the color of the circle
+     * @param row the row of the element
+     * @param col the column of the element
      * @return the HTML for a list element of the game
      */
 	private String createLI(ul type, Colors c, int row, int col) {

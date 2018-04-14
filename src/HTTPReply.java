@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.zip.GZIPOutputStream;
 
+
+/**
+ * class the represent a reply of the HTTP protocol
+ */
 public class HTTPReply extends HTTP {
 	private static final int CHUNCK_SIZE = 128;
 	
@@ -11,12 +15,23 @@ public class HTTPReply extends HTTP {
     protected HashMap<HTTPOption, HTTPHeader> headers;
     protected Object body;
 
+    /**
+     * constructor of a reply that has a body
+     * @param ret the return code of the reply
+     * @param headers the headers of the reply
+     * @param body the body of the reply
+     */
     public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers, Object body) {
         this.ret = ret;
         this.headers = headers;
         this.body = body;
     }
 
+    /**
+     * constructor of a reply that has not a body
+     * @param ret the return code of the reply
+     * @param headers the headers of the reply
+     */
     public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers) {
         this.ret = ret;
         this.headers = headers;
@@ -25,13 +40,23 @@ public class HTTPReply extends HTTP {
 
     protected HTTPReply(){}
 
+    /**
+     * reply on the OutputStream given in argument as it is defined by the HTTP protocol
+     * @param out the OutputStream on which to reply
+     * @throws IOException in case of error writing on the OutputStream
+     * @throws OptionNotPresentException in case there is a body but no Content-type header
+     * @throws BadFileException in case the content-type header value is not a valid type
+     */
     public void reply(OutputStream out) throws IOException, OptionNotPresentException, BadFileException {
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 
+        //write first line of the reply
         writer.write("HTTP/" + HTTP_VERSION + " " + ret.getCode() + " " + ret.getStatus() + "\r\n");
 
         System.out.println("headerValue = ");
+
+        //write the headers
         for (HTTPHeader header : headers.values()){
             System.out.println(header.getOption().getName() + ":" + header.getValue());
             writer.write(header.getOption().getName() + ":" + header.getValue() + "\r\n");
@@ -42,13 +67,18 @@ public class HTTPReply extends HTTP {
 
         if (body != null) { // write body only if it exists
             System.out.println("body not null");
-            FileType type;
 
-            type = FileType.getCorrespondingFileType(headers.get(HTTPOption.CONTENT_TYPE).getValue());
-            
-            if (type == null) {
+            //get content-type header
+            HTTPHeader typeHeader = headers.get(HTTPOption.CONTENT_TYPE);
+
+            //no content-type header
+            if (typeHeader == null) {
                 throw new OptionNotPresentException();
             }
+
+            //get the FileType corresponding to the content-type header value.
+            FileType type = FileType.getCorrespondingFileType(typeHeader.getValue());
+            
 
             if (type == FileType.PNG) { // it is an image
             	

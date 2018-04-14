@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-
+/**
+ * class representing a server thread
+ */
 public class Worker implements Runnable {
 
 
@@ -17,7 +19,11 @@ public class Worker implements Runnable {
 
     HTMLPage html;
 
-    //Server thread, take as argument a number to identify it and a connection socket
+	/**
+	 * constructor
+	 * @param number number to indentify the worker
+	 * @param s a connection socket
+	 */
     public Worker(int number, Socket s) {
 		this.number = number;
 		this.socket = s;

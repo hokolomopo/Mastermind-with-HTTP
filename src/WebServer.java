@@ -20,6 +20,7 @@ public class WebServer {
         {
             int i = 0;
 
+            //create socket
             ServerSocket serverSocket = new ServerSocket(PORT);
             System.err.println("Serveur lanced sur le port : " + PORT);
             ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
@@ -27,9 +28,10 @@ public class WebServer {
             //Repeatedly wait for connections, and process
             while (true)
             {
-
+                //accept new request
                 Socket clientSocket = serverSocket.accept();
 
+                //use a thread to process the request
                 executorService.submit(new Worker(i++, clientSocket));
                 System.err.println("New client connected");
 
@@ -40,8 +42,12 @@ public class WebServer {
         }
 
     }
-    
-    //Return the cookie with the id given in argument, or null if it doen't exist
+
+    /**
+     * Return the cookie with the id given in argument, or null if it does not exist
+     * @param id the id of the cookie
+     * @return the cookie with the id given in argument
+     */
     public static Cookie getCookie(String id) {
     	for(Cookie c : cookies) {
     		if(c.getId().equals(id)) {
@@ -50,8 +56,11 @@ public class WebServer {
     	}
     	return null;
     }
-    
-    //Add a new cookie to the server
+
+    /**
+     * Add a new cookie to the server
+     * @param cookie the cookie to be added
+     */
     public static void addCookie(Cookie cookie) {
     	cookies.add(cookie);
     }

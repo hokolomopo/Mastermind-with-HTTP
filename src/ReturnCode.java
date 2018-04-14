@@ -1,6 +1,8 @@
+/**
+ * enum holding the return codes of the HTTP protocol
+ */
 public enum ReturnCode {
 
-    //TODO: ajouter les status
     OK(200, "OK"),
     SEE_OTHER(303, "See Other"),
     BAD_REQUEST(400, "Bad Request"),

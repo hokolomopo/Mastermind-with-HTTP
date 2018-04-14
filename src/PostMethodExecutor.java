@@ -7,24 +7,15 @@ public class PostMethodExecutor extends MethodExecutor {
     public PostMethodExecutor() {
     }
 
-    /*
-     * Manage HTTP reply to a POST method and update the cookie of the client
-     * 
-     * The body of the POST request is expected to have this format : 'colors=red+yellow+blue+black'
-     * 
-     * Returns a HTTPReply object suitable for the message receiver
-     * 
-     * Throws BadRequestException if :
-     * 	-The HTTP header isn't as expected
-     * 	-The request body isn't formatted correctly
-     * 	-Colors are spelled wrong
-     */
     /**
-     * process the post request in order to build the appropriate reply.
+     * process the request as a post method;
+     * it updates the cookies of the client;
+     * The body of the POST request is expected to have this format : "colors=color1+color2+color3+color4"
+     * it then redirect to the main page
      * @param url the url of the post request
      * @param headers the headers of the post request
      * @param requestBody the body of the post request
-     * @return the appropriate reply held by a HTTPReply object
+     * @return a redirection reply to the mastermind page
      * @throws BadRequestException in case the request is not valid
      * @throws NotFoundException in case the url does not correspond to an existing page
      */
@@ -33,9 +24,11 @@ public class PostMethodExecutor extends MethodExecutor {
         if (!url.equals("/play.html"))
             throw new NotFoundException();
 
+        //get the content-type
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();
 
         try {
+            //if the content-type field does not exist or has an invalid value
             if (type == null || FileType.getCorrespondingFileType(type) != FileType.URL)
                 throw new BadRequestException();
         }
@@ -45,17 +38,23 @@ public class PostMethodExecutor extends MethodExecutor {
         
         HashMap<HTTPOption, HTTPHeader> replyHeaders = new HashMap<HTTPOption, HTTPHeader>();
 
+        // set the cookie field if the Executor according the cookie header of he request and set the reply cookie header
         this.manageCookies(headers, replyHeaders);
+        //split the body between the "colors" part and the part that hold the combination
         StringTokenizer token = new StringTokenizer(requestBody, "=");
         
         try {
-        	//Check
+        	//Check if the first part is "colors"
             if(!(token.nextToken().equals("colors")))
                 throw new BadRequestException();
 
+            // build the combination according to what's given in the body
             Combination combi = new Combination(token.nextToken());
-            
+
+            //evaluate the combination
             combi.evaluate(this.cookie.getRightCombination());
+
+            //addthis try to the game state
             this.cookie.addTry(combi);
 
             //Check for victory/defeat

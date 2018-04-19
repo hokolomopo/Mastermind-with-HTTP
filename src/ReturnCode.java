@@ -1,7 +1,8 @@
 /**
  * enum holding the return codes of the HTTP protocol
  */
-public enum ReturnCode {
+public enum ReturnCode
+{
 
     OK(200, "OK"),
     SEE_OTHER(303, "See Other"),
@@ -15,16 +16,19 @@ public enum ReturnCode {
     private int code;
     private String status;
 
-    private ReturnCode(int code, String status) {
+    private ReturnCode(int code, String status)
+    {
         this.code = code;
         this.status = status;
     }
 
-    public int getCode() {
+    public int getCode()
+    {
         return code;
     }
 
-    public String getStatus() {
+    public String getStatus()
+    {
         return status;
     }
 }

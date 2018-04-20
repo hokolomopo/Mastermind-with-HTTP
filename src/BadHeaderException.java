@@ -3,7 +3,12 @@
  */
 public class BadHeaderException extends Exception
 {
-    public BadHeaderException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadHeaderException()
     {
     }
 }

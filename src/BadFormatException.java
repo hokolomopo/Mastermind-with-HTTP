@@ -3,7 +3,12 @@
  */
 public class BadFormatException extends Exception
 {
-    public BadFormatException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadFormatException()
     {
     }
 }

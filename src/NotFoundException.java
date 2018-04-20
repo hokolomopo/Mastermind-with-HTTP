@@ -3,7 +3,12 @@
  */
 public class NotFoundException extends Exception
 {
-    public NotFoundException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public NotFoundException()
     {
     }
 }

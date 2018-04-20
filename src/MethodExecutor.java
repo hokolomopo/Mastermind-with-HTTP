@@ -22,10 +22,12 @@ public abstract class MethodExecutor extends HTTP
      */
     public abstract HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException;
 
-    /*
+    /**
      * Retrieve data for the cookie used from the user or create a new cookie if needed
-     */
-    protected void manageCookies(HashMap<HTTPOption, HTTPHeader> requestHeaders, HashMap<HTTPOption, HTTPHeader> replyHeaders)
+     *
+     * @param requestHeaders	the headers of the received request
+     * @param replyHeaders	the header of the reply that we will sned back to the client
+     */    protected void manageCookies(HashMap<HTTPOption, HTTPHeader> requestHeaders, HashMap<HTTPOption, HTTPHeader> replyHeaders)
     {
         //Get a cookie header if any
         HTTPHeader cookieHeader = requestHeaders.get(HTTPOption.COOKIE);

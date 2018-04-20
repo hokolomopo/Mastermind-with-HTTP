@@ -122,6 +122,13 @@ public class HTTPReply extends HTTP
     }
 
 
+    /**
+     * Encode a ByteArrayOutputStream with GZip
+     * 
+     * @param s	ByteArrayOutputStream to encode in GZip
+     * @return a ByteArrayOutputStream containing the input stream converted to GZip
+     * @throws IOException if a writing error in a Stream occurs
+     */
     private ByteArrayOutputStream convertToGzipStream(ByteArrayOutputStream s) throws IOException
     {
 
@@ -134,6 +141,13 @@ public class HTTPReply extends HTTP
 
     }
 
+    /**
+     * Encode a String with GZip
+     * 
+     * @param s	String to encode in GZip
+     * @return a ByteArrayOutputStream containing the input stream converted to GZip
+     * @throws IOException if a writing error in a Stream occurs
+     */
     private ByteArrayOutputStream convertToGzipStream(String toSend) throws IOException
     {
 
@@ -146,6 +160,13 @@ public class HTTPReply extends HTTP
 
     }
 
+    /**
+     * Send a stream using chunked HTTP encoding
+     * 
+     * @param stream a stream to send 
+     * @param out	the output stream where you want to send the input stream in chunks
+     * @throws IOException if a writing error in a Stream occurs
+     */
     private void sendInChunks(ByteArrayOutputStream stream, OutputStream out) throws IOException
     {
         String separator = "\r\n";

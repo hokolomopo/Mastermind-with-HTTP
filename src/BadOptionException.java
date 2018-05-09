@@ -3,7 +3,12 @@
  */
 public class BadOptionException extends Exception
 {
-    public BadOptionException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadOptionException()
     {
     }
 }

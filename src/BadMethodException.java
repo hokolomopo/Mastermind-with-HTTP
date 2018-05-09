@@ -3,7 +3,12 @@
  */
 public class BadMethodException extends Exception
 {
-    public BadMethodException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadMethodException()
     {
     }
 }

@@ -3,7 +3,12 @@
  */
 public class BadColorException extends Exception
 {
-    public BadColorException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadColorException()
     {
     }
 }

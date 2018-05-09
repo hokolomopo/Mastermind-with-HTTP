@@ -3,7 +3,12 @@
  */
 public class BadVersionException extends Exception
 {
-    public BadVersionException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadVersionException()
     {
     }
 }

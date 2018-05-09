@@ -3,7 +3,12 @@
  */
 public class OptionNotPresentException extends Exception
 {
-    public OptionNotPresentException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public OptionNotPresentException()
     {
     }
 }

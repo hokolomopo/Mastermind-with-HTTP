@@ -3,7 +3,12 @@
  */
 public class BadRequestException extends Exception
 {
-    public BadRequestException()
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BadRequestException()
     {
     }
 }

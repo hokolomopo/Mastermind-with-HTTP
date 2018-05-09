@@ -62,7 +62,7 @@ public class RequestHandler
         }
         catch (OptionNotPresentException | BadFileException e)
         {
-            // if we get there, no BadRequestException was raised, therefore having those exception is not possible
+            // if we get there, no BadRequestException was raised, therefore having those exceptions is not possible
         }
     }
 }

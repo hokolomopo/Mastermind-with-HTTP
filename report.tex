@@ -32,8 +32,8 @@
 \date{}
 \lhead{ Adrien Minne s154340 \\ Delaunoy Arnaud s153059}
 %\renewcommand\thesection{}
-\renewcommand\thesubsection{}
-\renewcommand\thesubsubsection{}
+%\renewcommand\thesubsection{}
+%\renewcommand\thesubsubsection{}
 
 \begin{document}
 \begin{titlepage}
@@ -44,16 +44,24 @@
 
 \section{Software architecture}
 
-\subsection{WebServer}
-This is the main class. Its job is to manage the sockets; it accepts clients and assign a new Worker for handling the client's request.\\
+\subsection{connexion handling}
+
+\subsubsection{WebServer}
+This is the main class. Its job is to manage the sockets; it accepts clients and assign a new Worker for handling the client's request. It thus handle the threadpool mechanism.\\
 In addition to that it also keeps manage the cookies of all the clients providing a method for creating new cookies and getting cookie from their id. However, this class only handle the storing of the cookies and not the mechanisms that come with it.
 
-\subsection{Worker}
+\subsubsection{Worker}
 This is a thread class that handle a client's request given its socket. To do so it calls the RequestHandler and close the socket when the Request is handled.
 
-\subsection{RequestHandler}
+\subsection{Request handling}
 
+\subsubsection{RequestHandler}
+This class has a private constructor and is not meant to be instantiated. It provides a static method for handling request based on the client sockets.
 
+\subsubsection{HTTPRequest}
+This class represent a request of the HTTP protocol. The main job of this class if performed by its constructor as it takes a socket as argument and construct parsing what is given through this socket. It also performs some checks about the consistency of what's given though the socket. The pieces of information about this request are then easily accessible by getting the values of the variables of the HTTPRequest object.
+
+\subsubsection{HTTPReply}
 
 \section{Multi-thread coordination}
 %Having different cookie id for each user allow to totally separate The variables the %threads are working on and thus makes coordination mechanisms unneeded.

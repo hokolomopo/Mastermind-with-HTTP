@@ -1,4 +1,11 @@
 \BOOKMARK [1][-]{section.1}{Software architecture}{}% 1
-\BOOKMARK [1][-]{section.2}{Multi-thread coordination}{}% 2
-\BOOKMARK [1][-]{section.3}{Limits}{}% 3
-\BOOKMARK [1][-]{section.4}{Possible improvements}{}% 4
+\BOOKMARK [2][-]{subsection.1.1}{connexion handling}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{WebServer}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Worker}{subsection.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{Request handling}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.1}{RequestHandler}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.2}{HTTPRequest}{subsection.1.2}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.3}{HTTPReply}{subsection.1.2}% 8
+\BOOKMARK [1][-]{section.2}{Multi-thread coordination}{}% 9
+\BOOKMARK [1][-]{section.3}{Limits}{}% 10
+\BOOKMARK [1][-]{section.4}{Possible improvements}{}% 11

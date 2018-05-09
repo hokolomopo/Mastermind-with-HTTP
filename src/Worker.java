@@ -15,11 +15,6 @@ public class Worker implements Runnable
     private Socket socket;
     private int number;
 
-    BufferedWriter out;
-    BufferedReader in;
-
-    HTMLPage html;
-
     /**
      * constructor
      *

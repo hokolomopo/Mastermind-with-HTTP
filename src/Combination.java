@@ -101,26 +101,46 @@ public class Combination
      */
     public void evaluate(Combination comparison)
     {
+        boolean answerUsed[] = new boolean[COMBI_LENGTH];
+        boolean guessUsed[] = new boolean[COMBI_LENGTH];
+        for(int i = 0; i < COMBI_LENGTH; i++)
+        {
+            answerUsed[i] = false;
+            guessUsed[i] = false;
+        }
 
         //Reset results
         for (int i = 0; i < 2; i++)
             results[i] = 0;
 
+        //Count correct and right placed
         for (int i = 0; i < COMBI_LENGTH; i++)
         {
-
-            //Count correct and right place
             if (this.combi[i] == comparison.getColors()[i])
+            {
                 this.results[0]++;
+                answerUsed[i] = true;
+                guessUsed[i] = true;
+            }
+        }
 
-                //Count correct but wrong place
-            else
-                for (int j = 0; j < COMBI_LENGTH; j++)
-                    if (this.combi[i] == comparison.getColors()[j])
-                    {
-                        this.results[1]++;
-                        break;
-                    }
+        //Count correct but wrong placed
+        for (int i = 0; i < COMBI_LENGTH; i++)
+        {
+            if(guessUsed[i])
+                continue;
+
+            for (int j = 0; j < COMBI_LENGTH; j++)
+            {
+                if(answerUsed[j])
+                    continue;
+                if(this.combi[i] == comparison.getColors()[j])
+                {
+                    this.results[1]++;
+                    answerUsed[j] = true;
+                    break; // no need to set guessUsed[i] to true as we break and thus never come back to this guess again
+                }
+            }
         }
     }
 

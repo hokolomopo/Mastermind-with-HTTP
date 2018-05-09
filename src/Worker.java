@@ -32,17 +32,6 @@ public class Worker implements Runnable
         this.socket = s;
 
         System.out.println("Do things number " + this.number);
-
-        try
-        {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

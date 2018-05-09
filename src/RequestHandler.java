@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class RequestHandler
 {
 
+    private RequestHandler(){}
+
     /**
      * handle one request (read the request, process it and reply)
      *

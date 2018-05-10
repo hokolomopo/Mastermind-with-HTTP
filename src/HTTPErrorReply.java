@@ -1,5 +1,8 @@
 import java.util.HashMap;
 
+/**
+ * class that represent a error reply of the HTTP protocol
+ */
 public class HTTPErrorReply extends HTTPReply {
 
 	 /**

@@ -19,10 +19,20 @@ public class HTMLErrorPage {
 	
 	private String body;
 	
+	/**
+	 * constructor
+	 * 
+	 * @param errorType : the type of HTTP error
+	 */
 	public HTMLErrorPage(ReturnCode errorType) {
 		body = "Error " + Integer.toString(errorType.getCode()) + " : " + errorType.getStatus();
 	}
 	
+	/**
+	 * Get the HTML code of the error page
+	 * 
+	 * @return the HTML code
+	 */
 	public String getHtml() {
 		return head + body + tail;
 	}

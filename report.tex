@@ -62,6 +62,39 @@ This class has a private constructor and is not meant to be instantiated. It pro
 This class represent a request of the HTTP protocol. The main job of this class if performed by its constructor as it takes a socket as argument and construct parsing what is given through this socket. It also performs some checks about the consistency of what's given though the socket. The pieces of information about this request are then easily accessible by getting the values of the variables of the HTTPRequest object.
 
 \subsubsection{HTTPReply}
+This class represent a reply of the HTTP protocol. It works as the opposite of the HTTPRequest. The constructor takes as arguments The different pieces of information of the reply and have a method to send it through a socket with the HTTP protocol.
+
+\subsubsection{HTTPRedirectionReply}
+This class inherit from HTTPReply and provides a constructor that create a reply for redirection taking only the location as argument; the other components being always the same for any redirection.
+
+\subsubsection{MethodExecutor}
+This is an abstract class. It has an abstract method called process that produce the appropriate HTTPReply object given a HTTPRequest object. This abstract method is then implemented by either the \texttt{GetMethodExecutor}, \texttt{PostMethodExecutor} or \texttt{HeadMethodExecutor} Which implement the logic of a get, post, head request. It also provides a method to manage cookies. It modifies the headers of a reply given the headers of the request. It also modifies the cookie associated to this Executor and the cookie list according to the situation.
+
+\subsection{client side}
+\subsubsection{HTMLPage}
+
+\subsection{Other classes}
+
+\subsubsection{Colors}
+Enumeration representing a Color providing some basic method associated to it.
+
+\subsubsection{Combination}
+This class represent a Combination (Combination + result). It also provides a method parse a string containing the representation of a combination in order to set the combination of the object. It provides a method to set a random combination and a method to evaluate the combination setting the results based on a comparison combination given in argument.
+
+\subsubsection{Cookie}
+This class represent a cookie holding a mastermind game state. It thus associate a game state to a cookie ID in order to make the match when the user send a cookie id. It then has a method to adapt the HTMLPage to set the current game state.
+
+\subsubsection{FileType}
+Enumeration that contain the types that can be sent through a request or reply. It contain a string indicating the header value associated to it and a boolean indicating if this type is represented by a string.
+
+\subsubsection{HTTP}
+This class holds some general pieces of information about the HTTP protocol such as the version and a method to get the server time.
+
+\subsubsection{HTTPOption}
+This is an enumeration containing all the possible headers. It contain a string indicating how this header is represented in the HTTP protocol and some basic methods associated to it.
+
+\subsubsection{ReturnCode}
+This is an enumeration holding the return codes that we have to use in this project. To each return code is associated its number and the corresponding status.
 
 \section{Multi-thread coordination}
 %Having different cookie id for each user allow to totally separate The variables the %threads are working on and thus makes coordination mechanisms unneeded.

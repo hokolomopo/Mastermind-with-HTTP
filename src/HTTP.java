@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * class holding some general information/method about the HTP protocol
+ * class holding some general information/method about the HTTP protocol
  */
 public abstract class HTTP
 {

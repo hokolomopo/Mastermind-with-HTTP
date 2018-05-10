@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 
 /**
  * class handling the requests
@@ -35,23 +34,25 @@ public class RequestHandler
         catch (BadRequestException e)
         {
             System.out.println("bad request");
-            rep = new HTTPReply(ReturnCode.BAD_REQUEST, new HashMap<HTTPOption, HTTPHeader>());
+            rep = new HTTPErrorReply(ReturnCode.BAD_REQUEST);
         }
         catch (BadMethodException e)
         {
             System.out.println("not implemented");
-            rep = new HTTPReply(ReturnCode.NOT_IMPLEMENTED, new HashMap<HTTPOption, HTTPHeader>());
+            rep = new HTTPErrorReply(ReturnCode.NOT_IMPLEMENTED);
         }
         catch (BadVersionException e)
         {
             String[] body = new String[1];
             body[0] = "The only supported version is " + HTTP.HTTP_VERSION; //Todo: mettre juste la version et pas de message?
-            rep = new HTTPReply(ReturnCode.HTTP_VERSION_NOT_SUPPORTED, new HashMap<HTTPOption, HTTPHeader>(), body);
+            
+
+            rep = new HTTPErrorReply(ReturnCode.HTTP_VERSION_NOT_SUPPORTED);
         }
         catch (NotFoundException e)
         {
             System.out.println("Not found");
-            rep = new HTTPReply(ReturnCode.NOT_FOUND, new HashMap<HTTPOption, HTTPHeader>());
+            rep = new HTTPErrorReply(ReturnCode.NOT_FOUND);
         }
 
         try

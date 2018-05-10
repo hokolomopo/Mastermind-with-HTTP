@@ -57,7 +57,11 @@ public abstract class MethodExecutor extends HTTP
                 //Create a new cookie
                 Combination combi = new Combination();
                 combi.setRandomCombi();
-                this.cookie = new Cookie(combi, headerValue);
+                
+                //Create a new cookie and check if the generated id doesn't already exists
+                do {
+                	this.cookie = new Cookie(combi, headerValue);
+                }while(WebServer.getCookie(cookie.getId()) != null);
 
                 //Add the cookie to the server's cookie list
                 WebServer.addCookie(this.cookie);

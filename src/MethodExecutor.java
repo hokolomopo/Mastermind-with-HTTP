@@ -26,7 +26,7 @@ public abstract class MethodExecutor extends HTTP
      * Retrieve data for the cookie used from the user or create a new cookie if needed
      *
      * @param requestHeaders	the headers of the received request
-     * @param replyHeaders	the header of the reply that we will sned back to the client
+     * @param replyHeaders	the header of the reply that we will send back to the client
      */    protected void manageCookies(HashMap<HTTPOption, HTTPHeader> requestHeaders, HashMap<HTTPOption, HTTPHeader> replyHeaders)
     {
         //Get a cookie header if any

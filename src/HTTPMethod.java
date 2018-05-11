@@ -6,19 +6,27 @@ import java.util.HashMap;
 public enum HTTPMethod
 {
 
-    GET("GET", new GetMethodExecutor()),
-    POST("POST", new PostMethodExecutor()),
-    HEAD("HEAD", new HeadMethodExecutor());
+    GET("GET", "GetMethodExecutor"),
+    POST("POST", "PostMethodExecutor"),
+    HEAD("HEAD", "HeadMethodExecutor");
 
     //the executor associated to the method, this is what describe the behaviour of the method
-    private MethodExecutor exec;
+    private Class exec;
 
     private String name;
 
-    private HTTPMethod(String name, MethodExecutor exec)
+    private HTTPMethod(String name, String exec)
     {
         this.name = name;
-        this.exec = exec;
+        try
+        {
+            this.exec = Class.forName(exec);
+        }
+        catch(ClassNotFoundException e)
+        {
+            System.err.println("The file " + exec + ".java is missing");
+            System.exit(1);
+        }
     }
 
     /**
@@ -33,7 +41,18 @@ public enum HTTPMethod
      */
     public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException
     {
-        return exec.process(url, headers, requestBody);
+        try
+        {
+            MethodExecutor execInstance = (MethodExecutor) exec.getConstructor().newInstance();
+            return execInstance.process(url, headers, requestBody);
+        }
+        catch(ReflectiveOperationException e)
+        {
+            System.err.println("Unexpected error");
+            System.exit(1);
+        }
+
+        return null; //will not be executed, just for the code to compile.
     }
 
     /**
@@ -57,10 +76,5 @@ public enum HTTPMethod
     public String getName()
     {
         return name;
-    }
-
-    public MethodExecutor getExec()
-    {
-        return exec;
     }
 }

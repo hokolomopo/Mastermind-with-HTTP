@@ -11,6 +11,9 @@ public class WebServer
     private static final int PORT = 8001;
     private static final int THREAD_POOL_SIZE = 15;
 
+    //Duration of cookie (in minutes)
+    private static final int COOKIE_DURATION = 10;
+
     //Static array storing the cookies presents on the server
     private static ArrayList<Cookie> cookies = new ArrayList<Cookie>();
 
@@ -74,5 +77,8 @@ public class WebServer
         cookies.add(cookie);
     }
 
-
+    public static int getCookieDuration()
+    {
+        return COOKIE_DURATION;
+    }
 }

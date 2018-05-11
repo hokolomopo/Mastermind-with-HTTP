@@ -37,6 +37,7 @@ public class GetMethodExecutor extends MethodExecutor
             return new HTTPRedirectionReply(HTMLPage.HTML_FILE);
         }
 
+        
         //the headers are held in a hashMap to facilitate their research according to their HTTPOption (the type of value held by the header)
         HashMap<HTTPOption, HTTPHeader> replyHeaders = new HashMap<HTTPOption, HTTPHeader>();
         Object replyBody;
@@ -103,6 +104,25 @@ public class GetMethodExecutor extends MethodExecutor
             }
         }
 
+        // it is a known file
+        else if(WebsiteFiles.getFile(url.substring(1)) != null){
+        	
+        	WebsiteFiles file = WebsiteFiles.getFile(url.substring(1));
+        	
+        	try {
+				replyBody = file.file2String();
+			} catch (IOException e) {
+				throw new NotFoundException();
+			}
+        	
+            replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, file.getContentType()));
+            replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
+            replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+            replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Fri, 31 Dec 2100 23:59:59 GMT"));
+
+
+        }
+
         // it is an image
         else if (url.endsWith(".png"))
         {
@@ -115,6 +135,7 @@ public class GetMethodExecutor extends MethodExecutor
                 replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.PNG.getContentType()));
                 replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
                 replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+                replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Fri, 31 Dec 2100 23:59:59 GMT"));
 
             }
             catch (IOException e)

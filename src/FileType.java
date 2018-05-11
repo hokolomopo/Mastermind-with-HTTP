@@ -7,7 +7,9 @@ public enum FileType
 {
     HTML("text/html ;charset=utf-8", true),
     PNG("image/png", false),
-    URL("application/x-www-form-urlencoded", true);
+    URL("application/x-www-form-urlencoded", true),
+    CSS("text/css", true),
+    JS("text/javascript", true);
 
     private String contentType;
     private boolean isString;

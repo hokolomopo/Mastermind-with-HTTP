@@ -157,6 +157,11 @@ public class Cookie
         this.answer = tmp;
     }
 
+    public void updateTime()
+    {
+        creationTime = Calendar.getInstance();
+    }
+
     public Calendar getCreationTime()
     {
         return this.creationTime;

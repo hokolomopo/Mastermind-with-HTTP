@@ -43,7 +43,6 @@ public abstract class MethodExecutor extends HTTP
 
             //Add the cookie to the server's cookie list
             WebServer.addCookie(cookie);
-            replyHeaders.put(HTTPOption.SET_COOKIE, new HTTPHeader(HTTPOption.SET_COOKIE, cookie.getId() + "; path=/"));
         }else
         {
             //Try to fetch the cookie from the server's cookie list
@@ -76,6 +75,8 @@ public abstract class MethodExecutor extends HTTP
                     cookie.reset();
             }
         }
+        cookie.updateTime();
+        replyHeaders.put(HTTPOption.SET_COOKIE, new HTTPHeader(HTTPOption.SET_COOKIE, cookie.getId() + "; path=/"));
     }
 
 }

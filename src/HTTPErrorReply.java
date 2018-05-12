@@ -3,15 +3,14 @@ import java.util.HashMap;
 /**
  * class that represent a error reply of the HTTP protocol
  */
-public class HTTPErrorReply extends HTTPReply {
+public class HTTPErrorReply extends HTTPReply{
 
-	 /**
+    /**
      * constructor
      *
      * @param Error type /
      */
-    public HTTPErrorReply(ReturnCode error)
-    {
+    public HTTPErrorReply(ReturnCode error){
 
         ret = error;
 
@@ -22,6 +21,6 @@ public class HTTPErrorReply extends HTTPReply {
         headers.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
 
         body = new HTMLErrorPage(ReturnCode.NOT_FOUND).getHtml();
-    } 
+    }
 }
 

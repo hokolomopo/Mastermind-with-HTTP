@@ -3,8 +3,7 @@
  * used in mastermind project
  */
 
-public enum FileType
-{
+public enum FileType{
     HTML("text/html ;charset=utf-8", true),
     PNG("image/png", false),
     URL("application/x-www-form-urlencoded", true),
@@ -14,19 +13,16 @@ public enum FileType
     private String contentType;
     private boolean isString;
 
-    private FileType(String contentType, boolean isString)
-    {
+    private FileType(String contentType, boolean isString){
         this.contentType = contentType;
         this.isString = isString;
     }
 
-    public String getContentType()
-    {
+    public String getContentType(){
         return contentType;
     }
 
-    public boolean isString()
-    {
+    public boolean isString(){
         return isString;
     }
 
@@ -37,10 +33,8 @@ public enum FileType
      * @return
      * @throws BadFileException thrown in case no FileType match the given name
      */
-    public static FileType getCorrespondingFileType(String contentType) throws BadFileException
-    {
-        for (FileType type : FileType.values())
-        {
+    public static FileType getCorrespondingFileType(String contentType) throws BadFileException{
+        for (FileType type : FileType.values()){
             if (type.contentType.equals(contentType))
                 return type;
         }

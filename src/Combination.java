@@ -5,8 +5,7 @@ import java.util.Random;
 /**
  * class representing a mastermind's combination
  */
-public class Combination
-{
+public class Combination{
     public static final int COMBI_LENGTH = 4;
 
     //Colors of the combination
@@ -16,8 +15,7 @@ public class Combination
     //result[0] = right color right place, result[1] = right color wrong place
     private int[] results = new int[2];
 
-    public Combination()
-    {
+    public Combination(){
 
         for (int i = 0; i < results.length; i++)
             results[i] = 0;
@@ -35,8 +33,7 @@ public class Combination
      * @throws BadFormatException in case s is ill formatted
      * @throws BadColorException  in case a color which is not part of mastermind's color is entered
      */
-    public Combination(String s) throws BadFormatException, BadColorException
-    {
+    public Combination(String s) throws BadFormatException, BadColorException{
         for (int i = 0; i < results.length; i++)
             results[i] = 0;
 
@@ -50,8 +47,7 @@ public class Combination
      * @throws BadFormatException in case s is ill formatted
      * @throws BadColorException  in case a color which is not part of mastermind's color is entered
      */
-    public void setCombi(String s) throws BadFormatException, BadColorException
-    {
+    public void setCombi(String s) throws BadFormatException, BadColorException{
         System.out.println("what the fuck");
         //Cut the string into the colors
         ArrayList<String> colors = new ArrayList<String>(Arrays.asList(s.split("\\+")));
@@ -66,8 +62,7 @@ public class Combination
             throw new BadFormatException();
 
         //Transform the Strings into Colors
-        for (int i = 0; i < COMBI_LENGTH; i++)
-        {
+        for (int i = 0; i < COMBI_LENGTH; i++){
 
             System.out.print(colors.get(i) + " ");
 
@@ -82,12 +77,10 @@ public class Combination
     /**
      * Set the combination to a random combination
      */
-    public void setRandomCombi()
-    {
+    public void setRandomCombi(){
         Random rand = new Random();
 
-        for (int i = 0; i < COMBI_LENGTH; i++)
-        {
+        for (int i = 0; i < COMBI_LENGTH; i++){
             //Take a random Color, put length - 1 to avoid picking EMPTY color
             this.combi[i] = Colors.values()[rand.nextInt(Colors.values().length - 1)];
         }
@@ -99,12 +92,10 @@ public class Combination
      *
      * @param comparison the combination this combination is compared to
      */
-    public void evaluate(Combination comparison)
-    {
+    public void evaluate(Combination comparison){
         boolean answerUsed[] = new boolean[COMBI_LENGTH];
         boolean guessUsed[] = new boolean[COMBI_LENGTH];
-        for(int i = 0; i < COMBI_LENGTH; i++)
-        {
+        for (int i = 0; i < COMBI_LENGTH; i++){
             answerUsed[i] = false;
             guessUsed[i] = false;
         }
@@ -114,10 +105,8 @@ public class Combination
             results[i] = 0;
 
         //Count correct and right placed
-        for (int i = 0; i < COMBI_LENGTH; i++)
-        {
-            if (this.combi[i] == comparison.getColors()[i])
-            {
+        for (int i = 0; i < COMBI_LENGTH; i++){
+            if (this.combi[i] == comparison.getColors()[i]){
                 this.results[0]++;
                 answerUsed[i] = true;
                 guessUsed[i] = true;
@@ -125,17 +114,14 @@ public class Combination
         }
 
         //Count correct but wrong placed
-        for (int i = 0; i < COMBI_LENGTH; i++)
-        {
-            if(guessUsed[i])
+        for (int i = 0; i < COMBI_LENGTH; i++){
+            if (guessUsed[i])
                 continue;
 
-            for (int j = 0; j < COMBI_LENGTH; j++)
-            {
-                if(answerUsed[j])
+            for (int j = 0; j < COMBI_LENGTH; j++){
+                if (answerUsed[j])
                     continue;
-                if(this.combi[i] == comparison.getColors()[j])
-                {
+                if (this.combi[i] == comparison.getColors()[j]){
                     this.results[1]++;
                     answerUsed[j] = true;
                     break; // no need to set guessUsed[i] to true as we break and thus never come back to this guess again
@@ -144,13 +130,11 @@ public class Combination
         }
     }
 
-    public Colors[] getColors()
-    {
+    public Colors[] getColors(){
         return combi;
     }
 
-    public int[] getResults()
-    {
+    public int[] getResults(){
         return results;
     }
 }

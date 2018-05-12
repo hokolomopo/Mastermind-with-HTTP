@@ -3,8 +3,7 @@ import java.util.HashMap;
 /**
  * enumeration holding the different method of the http protocol
  */
-public enum HTTPMethod
-{
+public enum HTTPMethod{
 
     GET("GET", "GetMethodExecutor"),
     POST("POST", "PostMethodExecutor"),
@@ -15,15 +14,12 @@ public enum HTTPMethod
 
     private String name;
 
-    private HTTPMethod(String name, String exec)
-    {
+    private HTTPMethod(String name, String exec){
         this.name = name;
-        try
-        {
+        try{
             this.exec = Class.forName(exec);
         }
-        catch(ClassNotFoundException e)
-        {
+        catch (ClassNotFoundException e){
             System.err.println("The file " + exec + ".java is missing");
             System.exit(1);
         }
@@ -39,15 +35,12 @@ public enum HTTPMethod
      * @throws BadRequestException in case the request is not valid
      * @throws NotFoundException   in case the url does not correspond to an existing page
      */
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException
-    {
-        try
-        {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException{
+        try{
             MethodExecutor execInstance = (MethodExecutor) exec.getConstructor().newInstance();
             return execInstance.process(url, headers, requestBody);
         }
-        catch(ReflectiveOperationException e)
-        {
+        catch (ReflectiveOperationException e){
             System.err.println("Unexpected error");
             System.exit(1);
         }
@@ -62,19 +55,16 @@ public enum HTTPMethod
      * @return the method which name match the name argument
      * @throws BadMethodException in case there is not method which name match the name argument
      */
-    public static HTTPMethod getCorrespondingMethod(String name) throws BadMethodException
-    {
+    public static HTTPMethod getCorrespondingMethod(String name) throws BadMethodException{
 
-        for (HTTPMethod request : HTTPMethod.values())
-        {
+        for (HTTPMethod request : HTTPMethod.values()){
             if (request.name.equals(name))
                 return request;
         }
         throw new BadMethodException();
     }
 
-    public String getName()
-    {
+    public String getName(){
         return name;
     }
 }

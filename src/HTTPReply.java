@@ -8,8 +8,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * class the represent a reply of the HTTP protocol
  */
-public class HTTPReply extends HTTP
-{
+public class HTTPReply extends HTTP{
     private static final int CHUNCK_SIZE = 128;
 
     protected ReturnCode ret;
@@ -23,8 +22,7 @@ public class HTTPReply extends HTTP
      * @param headers the headers of the reply
      * @param body    the body of the reply
      */
-    public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers, Object body)
-    {
+    public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers, Object body){
         this.ret = ret;
         this.headers = headers;
         this.body = body;
@@ -36,15 +34,13 @@ public class HTTPReply extends HTTP
      * @param ret     the return code of the reply
      * @param headers the headers of the reply
      */
-    public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers)
-    {
+    public HTTPReply(ReturnCode ret, HashMap<HTTPOption, HTTPHeader> headers){
         this.ret = ret;
         this.headers = headers;
         this.body = null;
     }
 
-    protected HTTPReply()
-    {
+    protected HTTPReply(){
     }
 
     /**
@@ -55,8 +51,7 @@ public class HTTPReply extends HTTP
      * @throws OptionNotPresentException in case there is a body but no Content-type header
      * @throws BadFileException          in case the content-type header value is not a valid type
      */
-    public void reply(OutputStream out) throws IOException, OptionNotPresentException, BadFileException
-    {
+    public void reply(OutputStream out) throws IOException, OptionNotPresentException, BadFileException{
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 
@@ -66,8 +61,7 @@ public class HTTPReply extends HTTP
         System.out.println("headerValue = ");
 
         //write the headers
-        for (HTTPHeader header : headers.values())
-        {
+        for (HTTPHeader header : headers.values()){
             System.out.println(header.getOption().getName() + ":" + header.getValue());
             writer.write(header.getOption().getName() + ":" + header.getValue() + "\r\n");
         }
@@ -75,16 +69,14 @@ public class HTTPReply extends HTTP
         writer.write("\r\n");
         writer.flush();
 
-        if (body != null)
-        { // write body only if it exists
+        if (body != null){ // write body only if it exists
             System.out.println("body not null");
 
             //get content-type header
             HTTPHeader typeHeader = headers.get(HTTPOption.CONTENT_TYPE);
 
             //no content-type header
-            if (typeHeader == null)
-            {
+            if (typeHeader == null){
                 throw new OptionNotPresentException();
             }
 
@@ -92,26 +84,23 @@ public class HTTPReply extends HTTP
             FileType type = FileType.getCorrespondingFileType(typeHeader.getValue());
 
 
-            if (type == FileType.PNG)
-            { // it is an image
+            if (type == FileType.PNG){ // it is an image
 
                 ByteArrayOutputStream imgStream = new ByteArrayOutputStream();
 
-                if (!ImageIO.write((BufferedImage) body, "png", imgStream))
-                {
+                if (!ImageIO.write((BufferedImage) body, "png", imgStream)){
                     throw new IOException();
                 }
 
                 this.sendInChunks(this.convertToGzipStream(imgStream), out);
-            }else
-            { // it is not an image and it is thus a string
+            }
+            else{ // it is not an image and it is thus a string
 
-                if (headers.get(HTTPOption.CONTENT_ENCODING) == null || headers.get(HTTPOption.TRANSFER_ENCODING) == null)
-                {
+                if (headers.get(HTTPOption.CONTENT_ENCODING) == null || headers.get(HTTPOption.TRANSFER_ENCODING) == null){
                     System.out.println("AJAX");
                     writer.write((String) body);
-                }else
-                {
+                }
+                else{
                     System.out.println("Normalement");
                     this.sendInChunks(this.convertToGzipStream((String) body), out);
                 }
@@ -124,13 +113,12 @@ public class HTTPReply extends HTTP
 
     /**
      * Encode a ByteArrayOutputStream with GZip
-     * 
-     * @param s	ByteArrayOutputStream to encode in GZip
+     *
+     * @param s ByteArrayOutputStream to encode in GZip
      * @return a ByteArrayOutputStream containing the input stream converted to GZip
      * @throws IOException if a writing error in a Stream occurs
      */
-    private ByteArrayOutputStream convertToGzipStream(ByteArrayOutputStream s) throws IOException
-    {
+    private ByteArrayOutputStream convertToGzipStream(ByteArrayOutputStream s) throws IOException{
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         GZIPOutputStream gzip = new GZIPOutputStream(stream);
@@ -143,13 +131,12 @@ public class HTTPReply extends HTTP
 
     /**
      * Encode a String with GZip
-     * 
-     * @param s	String to encode in GZip
+     *
+     * @param s String to encode in GZip
      * @return a ByteArrayOutputStream containing the input stream converted to GZip
      * @throws IOException if a writing error in a Stream occurs
      */
-    private ByteArrayOutputStream convertToGzipStream(String toSend) throws IOException
-    {
+    private ByteArrayOutputStream convertToGzipStream(String toSend) throws IOException{
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         GZIPOutputStream gzip = new GZIPOutputStream(stream);
@@ -162,21 +149,19 @@ public class HTTPReply extends HTTP
 
     /**
      * Send a stream using chunked HTTP encoding
-     * 
-     * @param stream a stream to send 
-     * @param out	the output stream where you want to send the input stream in chunks
+     *
+     * @param stream a stream to send
+     * @param out    the output stream where you want to send the input stream in chunks
      * @throws IOException if a writing error in a Stream occurs
      */
-    private void sendInChunks(ByteArrayOutputStream stream, OutputStream out) throws IOException
-    {
+    private void sendInChunks(ByteArrayOutputStream stream, OutputStream out) throws IOException{
         String separator = "\r\n";
 
         int sizeSent = 0;
         byte[] b = stream.toByteArray();
 
         int i = 0;
-        while (i < b.length)
-        {
+        while (i < b.length){
             if (b.length - i >= CHUNCK_SIZE)
                 sizeSent = CHUNCK_SIZE;
             else
@@ -196,33 +181,27 @@ public class HTTPReply extends HTTP
     }
 
 
-    public void setRet(ReturnCode ret)
-    {
+    public void setRet(ReturnCode ret){
         this.ret = ret;
     }
 
-    public void setBody(Object body)
-    {
+    public void setBody(Object body){
         this.body = body;
     }
 
-    public void setHeaders(HashMap<HTTPOption, HTTPHeader> headers)
-    {
+    public void setHeaders(HashMap<HTTPOption, HTTPHeader> headers){
         this.headers = headers;
     }
 
-    public ReturnCode getRet()
-    {
+    public ReturnCode getRet(){
         return ret;
     }
 
-    public HashMap<HTTPOption, HTTPHeader> getHeaders()
-    {
+    public HashMap<HTTPOption, HTTPHeader> getHeaders(){
         return headers;
     }
 
-    public Object getBody()
-    {
+    public Object getBody(){
         return body;
     }
 

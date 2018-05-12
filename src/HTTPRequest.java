@@ -8,8 +8,7 @@ import java.util.StringTokenizer;
 /**
  * class representing a request of the HTTP protocol
  */
-public class HTTPRequest extends HTTP
-{
+public class HTTPRequest extends HTTP{
 
     private HashMap<HTTPOption, HTTPHeader> headers;
     private HTTPMethod method;
@@ -25,11 +24,9 @@ public class HTTPRequest extends HTTP
      * @throws BadVersionException in case the HTTP version is not the one expected by the server
      * @throws IOException         in case of error with the InputStream
      */
-    public HTTPRequest(InputStream in) throws BadRequestException, BadMethodException, BadVersionException, IOException, LengthRequieredException
-    {
+    public HTTPRequest(InputStream in) throws BadRequestException, BadMethodException, BadVersionException, IOException, LengthRequieredException{
 
-        try
-        {
+        try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
             System.out.println("before reading");
@@ -59,8 +56,7 @@ public class HTTPRequest extends HTTP
             System.out.println("tmp = " + tmp);
             HTTPHeader tmpHeader;
 
-            while (!tmp.isEmpty())
-            {
+            while (!tmp.isEmpty()){
                 tmpHeader = new HTTPHeader(tmp);
                 System.out.println("headerOption = " + tmpHeader.getOption().getName());
                 System.out.println("headerValue = " + tmpHeader.getValue());
@@ -73,18 +69,15 @@ public class HTTPRequest extends HTTP
 
             //read the body
             HTTPHeader content;
-            if ((content = headers.get(HTTPOption.CONTENT_TYPE)) != null)
-            { // request has a body
+            if ((content = headers.get(HTTPOption.CONTENT_TYPE)) != null){ // request has a body
 
                 //check if the body of the request is a string
-                try
-                {
+                try{
                     System.out.println(FileType.getCorrespondingFileType(content.getValue()) + " " + FileType.getCorrespondingFileType(content.getValue()).isString());
                     if (!FileType.getCorrespondingFileType(content.getValue()).isString())
                         throw new BadRequestException();
                 }
-                catch (BadFileException e)
-                {
+                catch (BadFileException e){
                     System.out.println("Bad file");
                     throw new BadRequestException();
                 }
@@ -95,61 +88,51 @@ public class HTTPRequest extends HTTP
                 if (tmp == null)
                     throw new LengthRequieredException();
 
-                try
-                {
+                try{
                     int length = Integer.parseInt(tmp);
                     body = new String();
                     //read the body
-                    for (int i = 0; i < length; i++)
-                    {
+                    for (int i = 0; i < length; i++){
                         body += (char) reader.read();
                     }
 
                     System.out.println("request body = " + body);
                 }
-                catch (NumberFormatException e)
-                {
+                catch (NumberFormatException e){
                     throw new BadRequestException();
                 }
-            }else
-            {
+            }
+            else{
                 body = null;
             }
         }
-        catch (IndexOutOfBoundsException | BadHeaderException e)
-        {
+        catch (IndexOutOfBoundsException | BadHeaderException e){
             System.out.println("Bad things");
             throw new BadRequestException();
         }
-        catch (NumberFormatException e)
-        {
+        catch (NumberFormatException e){
             System.out.println("Numberformat");
             throw new BadVersionException();
         }
     }
 
-    public HTTPMethod getMethod()
-    {
+    public HTTPMethod getMethod(){
         return method;
     }
 
-    public String getUrl()
-    {
+    public String getUrl(){
         return url;
     }
 
-    public HashMap<HTTPOption, HTTPHeader> getHeaders()
-    {
+    public HashMap<HTTPOption, HTTPHeader> getHeaders(){
         return headers; //TODO: clone?
     }
 
-    public String getBody()
-    {
+    public String getBody(){
         return body;
     }
 
-    public HTTPHeader getHeader(HTTPOption option)
-    {
+    public HTTPHeader getHeader(HTTPOption option){
         return headers.get(option);
     }
 }

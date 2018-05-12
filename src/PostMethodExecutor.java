@@ -2,11 +2,9 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
-public class PostMethodExecutor extends MethodExecutor
-{
+public class PostMethodExecutor extends MethodExecutor{
 
-    public PostMethodExecutor()
-    {
+    public PostMethodExecutor(){
     }
 
     /**
@@ -22,8 +20,7 @@ public class PostMethodExecutor extends MethodExecutor
      * @throws BadRequestException in case the request is not valid
      * @throws NotFoundException   in case the url does not correspond to an existing page
      */
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException
-    {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> headers, String requestBody) throws BadRequestException, NotFoundException{
 
         if (!url.equals("/play.html"))
             throw new NotFoundException();
@@ -31,14 +28,12 @@ public class PostMethodExecutor extends MethodExecutor
         //get the content-type
         String type = headers.get(HTTPOption.CONTENT_TYPE).getValue();
 
-        try
-        {
+        try{
             //if the content-type field does not exist or has an invalid value
             if (type == null || FileType.getCorrespondingFileType(type) != FileType.URL)
                 throw new BadRequestException();
         }
-        catch (BadFileException e)
-        {
+        catch (BadFileException e){
             throw new BadRequestException();
         }
 
@@ -49,8 +44,7 @@ public class PostMethodExecutor extends MethodExecutor
         //split the body between the "colors" part and the part that hold the combination
         StringTokenizer token = new StringTokenizer(requestBody, "=");
 
-        try
-        {
+        try{
             //Check if the first part is "colors"
             if (!(token.nextToken().equals("colors")))
                 throw new BadRequestException();
@@ -65,13 +59,11 @@ public class PostMethodExecutor extends MethodExecutor
             this.cookie.addTry(combi);
 
             //Check for victory/defeat
-            if (combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES)
-            {
+            if (combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES){
                 cookie.reset();
             }
         }
-        catch (NoSuchElementException | BadFormatException | BadColorException e)
-        {
+        catch (NoSuchElementException | BadFormatException | BadColorException e){
             //invalid request, do not add.
         }
 

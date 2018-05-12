@@ -1,14 +1,12 @@
 /**
  * thrown when a header is ill formatted
  */
-public class BadHeaderException extends Exception
-{
+public class BadHeaderException extends Exception{
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public BadHeaderException()
-    {
+    public BadHeaderException(){
     }
 }

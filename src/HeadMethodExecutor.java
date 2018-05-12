@@ -1,10 +1,8 @@
 import java.util.HashMap;
 
-public class HeadMethodExecutor extends MethodExecutor
-{
+public class HeadMethodExecutor extends MethodExecutor{
 
-    public HeadMethodExecutor()
-    {
+    public HeadMethodExecutor(){
     }
 
     /**
@@ -17,8 +15,7 @@ public class HeadMethodExecutor extends MethodExecutor
      * @throws BadRequestException in case the request is not valid
      * @throws NotFoundException   in case the url does not correspond to an existing page
      */
-    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String body) throws BadRequestException, NotFoundException
-    {
+    public HTTPReply process(String url, HashMap<HTTPOption, HTTPHeader> requestHeaders, String body) throws BadRequestException, NotFoundException{
 
         HTTPReply reply = new GetMethodExecutor().process(url, requestHeaders, body);
         reply.setBody(null);

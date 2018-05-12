@@ -1,8 +1,7 @@
 /**
  * enum holding the different possible header field
  */
-public enum HTTPOption
-{
+public enum HTTPOption{
     ACCEPT("Accept"),
     ACCEPT_CHARSET("Accept-Charset"),
     ACCEPT_ENCODING("Accept-Encoding"),
@@ -58,8 +57,7 @@ public enum HTTPOption
 
     private String name;
 
-    private HTTPOption(String name)
-    {
+    private HTTPOption(String name){
         this.name = name;
     }
 
@@ -70,18 +68,15 @@ public enum HTTPOption
      * @return the HTTPOption which name match the name given in argument
      * @throws BadOptionException in case no HTTPOption match the name given in argument
      */
-    public static HTTPOption getCorrespondingOption(String name) throws BadOptionException
-    {
-        for (HTTPOption option : HTTPOption.values())
-        {
+    public static HTTPOption getCorrespondingOption(String name) throws BadOptionException{
+        for (HTTPOption option : HTTPOption.values()){
             if (option.name.equals(name))
                 return option;
         }
         throw new BadOptionException();
     }
 
-    public String getName()
-    {
+    public String getName(){
         return name;
     }
 }

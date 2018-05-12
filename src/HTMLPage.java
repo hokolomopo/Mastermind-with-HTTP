@@ -6,8 +6,7 @@ import java.io.InputStreamReader;
 /**
  * class representing an html page of mastermind game
  */
-public class HTMLPage
-{
+public class HTMLPage{
 
     //HTML file that will be parsed
     //Need a string "GAMETOKEN" to be in it to get the place where we want to put the HTML code of the game
@@ -22,8 +21,7 @@ public class HTMLPage
     /**
      * Enum for CSS class ID of the HTML files
      */
-    private enum ul
-    {
+    private enum ul{
         RESULTS("results"),
         GAME("game"),
         USR("usr"),
@@ -31,8 +29,7 @@ public class HTMLPage
 
         public String id;
 
-        private ul(String s)
-        {
+        private ul(String s){
             this.id = s;
         }
     }
@@ -61,12 +58,10 @@ public class HTMLPage
      *
      * @throws IOException in case the HTML file of the static field HTML_FILE isn't found
      */
-    public HTMLPage() throws IOException
-    {
+    public HTMLPage() throws IOException{
         reader = new BufferedReader(new InputStreamReader(new FileInputStream(HTML_FILE), "UTF-8"));
 
-        for (int i = 0; i < LIVES; i++)
-        {
+        for (int i = 0; i < LIVES; i++){
             triedCombi[i] = new Combination();
         }
 
@@ -74,16 +69,14 @@ public class HTMLPage
 
         //Put the HTML file into the string the he class
         boolean tail = false;
-        while ((tmp = reader.readLine()) != null)
-        {
+        while ((tmp = reader.readLine()) != null){
             if (tail)
                 this.tailString += tmp + endl;
             else
                 this.headString += tmp + endl;
 
             //Check for GAMETOKEN to place the game itself
-            if (!tail && tmp.contains("GAMETOKEN"))
-            {
+            if (!tail && tmp.contains("GAMETOKEN")){
                 body = createGameUL();
                 tail = true;
             }
@@ -100,12 +93,10 @@ public class HTMLPage
      *
      * @return the HTML code of the main list of the game
      */
-    private String createGameUL()
-    {
+    private String createGameUL(){
         String ret = tab + "<ul class=\"" + ul.GAME.id + "\">" + endl;
 
-        for (int i = 0; i < LIVES; i++)
-        {
+        for (int i = 0; i < LIVES; i++){
             ret += tab + tab + "<li>" + endl;
             ret += createHorizontalUL(i);
             ret += tab + tab + "</li>" + endl;
@@ -122,8 +113,7 @@ public class HTMLPage
      * @param row the row of the current list element
      * @return the HTML code of an horizontal list of the game
      */
-    private String createHorizontalUL(int row)
-    {
+    private String createHorizontalUL(int row){
         String ret = tab + tab + tab + "<ul class=\"" + ul.LINE.id + "\">" + endl;
 
         Colors[] colors = triedCombi[LIVES - 1 - row].getColors();
@@ -160,8 +150,7 @@ public class HTMLPage
      * @param col  the column of the element
      * @return the HTML for a list element of the game
      */
-    private String createLI(ul type, Colors c, int row, int col)
-    {
+    private String createLI(ul type, Colors c, int row, int col){
         String ret = tab + tab + tab + tab + "<li class=\"" + type.id + " line\">";
         ret += "<img id=\"" + type.id + row + col + "\" src=\"" + c.getImagePath() + "\" alt=\"" + c.getName() + "\" class=\"" + type.id + "\">";
         ret += "</li>" + endl;
@@ -174,8 +163,7 @@ public class HTMLPage
      *
      * @return the HTML code of the page
      */
-    public String getHtmlCode()
-    {
+    public String getHtmlCode(){
         return headString + body + tailString;
     }
 
@@ -184,8 +172,7 @@ public class HTMLPage
      *
      * @param combi the combination to be set as next combination
      */
-    public void setNexCombination(Combination combi)
-    {
+    public void setNexCombination(Combination combi){
         triedCombi[currentTry] = combi;
         triedCombi[currentTry].evaluate(correctCombi);
         body = createGameUL();
@@ -198,8 +185,7 @@ public class HTMLPage
      *
      * @param combi the correct combination to be set
      */
-    public void setCorrectCombination(Combination combi)
-    {
+    public void setCorrectCombination(Combination combi){
         this.resetPage();
 
         this.correctCombi = combi;
@@ -209,17 +195,14 @@ public class HTMLPage
     /**
      * Reset the combinations of the page
      */
-    public void resetPage()
-    {
-        for (int i = 0; i < LIVES; i++)
-        {
+    public void resetPage(){
+        for (int i = 0; i < LIVES; i++){
             triedCombi[i] = new Combination();
         }
         body = createGameUL();
     }
 
-    public Combination getCorrectCombi()
-    {
+    public Combination getCorrectCombi(){
         return correctCombi;
     }
 }

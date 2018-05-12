@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class WebServer
-{
+public class WebServer{
 
     private static final int PORT = 8001;
     private static final int THREAD_POOL_SIZE = 15;
@@ -16,10 +15,8 @@ public class WebServer
 
     //@SuppressWarnings because there is no "clean" way to close the server (you have to CTRL+C/kill the process), so we never close the serverSocket
     @SuppressWarnings("resource")
-    public static void main(String[] args)
-    {
-        try
-        {
+    public static void main(String[] args){
+        try{
             int i = 0;
 
             //create socket
@@ -28,8 +25,7 @@ public class WebServer
             ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
             //Repeatedly wait for connections, and process
-            while (true)
-            {
+            while (true){
                 //accept new request
                 Socket clientSocket = serverSocket.accept();
 
@@ -39,8 +35,7 @@ public class WebServer
 
             }
         }
-        catch (IOException e)
-        {
+        catch (IOException e){
             System.err.println("Socket error, ending the program" + e.getMessage());
         }
 
@@ -52,12 +47,9 @@ public class WebServer
      * @param id the id of the cookie
      * @return the cookie with the id given in argument
      */
-    public static Cookie getCookie(String id)
-    {
-        for (Cookie c : cookies)
-        {
-            if (c.getId().equals(id))
-            {
+    public static Cookie getCookie(String id){
+        for (Cookie c : cookies){
+            if (c.getId().equals(id)){
                 return c;
             }
         }
@@ -69,8 +61,7 @@ public class WebServer
      *
      * @param cookie the cookie to be added
      */
-    public static void addCookie(Cookie cookie)
-    {
+    public static void addCookie(Cookie cookie){
         cookies.add(cookie);
     }
 

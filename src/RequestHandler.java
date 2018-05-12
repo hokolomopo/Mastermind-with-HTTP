@@ -54,6 +54,10 @@ public class RequestHandler
             System.out.println("Not found");
             rep = new HTTPErrorReply(ReturnCode.NOT_FOUND);
         }
+        catch(LengthRequieredException e)
+        {
+            rep = new HTTPErrorReply(ReturnCode.LENGTH_REQUIERED);
+        }
 
         try
         {

@@ -25,7 +25,7 @@ public class HTTPRequest extends HTTP
      * @throws BadVersionException in case the HTTP version is not the one expected by the server
      * @throws IOException         in case of error with the InputStream
      */
-    public HTTPRequest(InputStream in) throws BadRequestException, BadMethodException, BadVersionException, IOException
+    public HTTPRequest(InputStream in) throws BadRequestException, BadMethodException, BadVersionException, IOException, LengthRequieredException
     {
 
         try
@@ -93,7 +93,7 @@ public class HTTPRequest extends HTTP
                 tmp = headers.get(HTTPOption.CONTENT_LENGTH).getValue();
 
                 if (tmp == null)
-                    throw new BadRequestException();
+                    throw new LengthRequieredException();
 
                 try
                 {

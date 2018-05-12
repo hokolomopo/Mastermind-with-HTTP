@@ -13,25 +13,28 @@ public class WebServer{
     //Static array storing the cookies presents on the server
     private static ArrayList<Cookie> cookies = new ArrayList<Cookie>();
 
-    //@SuppressWarnings because there is no "clean" way to close the server (you have to CTRL+C/kill the process), so we never close the serverSocket
-    @SuppressWarnings("resource")
     public static void main(String[] args){
         try{
             int i = 0;
 
+            boolean loop = true;
+            
             //create socket
             ServerSocket serverSocket = new ServerSocket(PORT);
             System.err.println("Serveur launched on port : " + PORT);
             ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
             //Repeatedly wait for connections, and process
-            while (true){
+            while (loop){
                 //accept new request
                 Socket clientSocket = serverSocket.accept();
 
                 //use a thread to process the request
                 executorService.submit(new Worker(i++, clientSocket));
             }
+            
+        	serverSocket.close();
+
         }
         catch (IOException e){
             System.err.println("Socket error, ending the program" + e.getMessage());

@@ -38,10 +38,6 @@ public class RequestHandler{
             rep = new HTTPErrorReply(ReturnCode.NOT_IMPLEMENTED);
         }
         catch (BadVersionException e){
-            String[] body = new String[1];
-            body[0] = "The only supported version is " + HTTP.HTTP_VERSION; //Todo: mettre juste la version et pas de message?
-
-
             rep = new HTTPErrorReply(ReturnCode.HTTP_VERSION_NOT_SUPPORTED);
         }
         catch (NotFoundException e){

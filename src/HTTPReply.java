@@ -58,11 +58,9 @@ public class HTTPReply extends HTTP{
         //write first line of the reply
         writer.write("HTTP/" + HTTP_VERSION + " " + ret.getCode() + " " + ret.getStatus() + "\r\n");
 
-        System.out.println("headerValue = ");
 
         //write the headers
         for (HTTPHeader header : headers.values()){
-            System.out.println(header.getOption().getName() + ":" + header.getValue());
             writer.write(header.getOption().getName() + ":" + header.getValue() + "\r\n");
         }
 
@@ -70,7 +68,6 @@ public class HTTPReply extends HTTP{
         writer.flush();
 
         if (body != null){ // write body only if it exists
-            System.out.println("body not null");
 
             //get content-type header
             HTTPHeader typeHeader = headers.get(HTTPOption.CONTENT_TYPE);
@@ -97,11 +94,9 @@ public class HTTPReply extends HTTP{
             else{ // it is not an image and it is thus a string
 
                 if (headers.get(HTTPOption.CONTENT_ENCODING) == null || headers.get(HTTPOption.TRANSFER_ENCODING) == null){
-                    System.out.println("AJAX");
                     writer.write((String) body);
                 }
                 else{
-                    System.out.println("Normalement");
                     this.sendInChunks(this.convertToGzipStream((String) body), out);
                 }
             }

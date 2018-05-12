@@ -29,43 +29,38 @@ public class HTTPRequest extends HTTP{
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
-            System.out.println("before reading");
 
             // read the first line and split it into the different elements
             StringTokenizer token = new StringTokenizer(reader.readLine(), " ");
 
-            System.out.println("read");
             // read the method (the first element)
             method = HTTPMethod.getCorrespondingMethod(token.nextToken());
-            System.out.println("method = " + method.getName());
+
             //read the url (the second element)
             url = token.nextToken();
-            System.out.println("URL = " + url);
+
             //read the HTTP version (the third element)
             String version = token.nextToken();
             //check version validity
             StringTokenizer versionToken = new StringTokenizer(version, "/");
             if (!versionToken.nextToken().equals("HTTP") || Float.parseFloat(versionToken.nextToken()) != HTTP_VERSION)
                 throw new BadVersionException();
-            System.out.println("HTTP_VERSION OK");
+
 
             headers = new HashMap<HTTPOption, HTTPHeader>();
 
             //read the headers
             String tmp = reader.readLine();
-            System.out.println("tmp = " + tmp);
+
             HTTPHeader tmpHeader;
 
             while (!tmp.isEmpty()){
                 tmpHeader = new HTTPHeader(tmp);
-                System.out.println("headerOption = " + tmpHeader.getOption().getName());
-                System.out.println("headerValue = " + tmpHeader.getValue());
                 headers.put(tmpHeader.getOption(), tmpHeader);
                 tmp = reader.readLine();
-                System.out.println("tmp = " + tmp);
             }
 
-            System.out.println("end of loop");
+
 
             //read the body
             HTTPHeader content;
@@ -96,7 +91,7 @@ public class HTTPRequest extends HTTP{
                         body += (char) reader.read();
                     }
 
-                    System.out.println("request body = " + body);
+
                 }
                 catch (NumberFormatException e){
                     throw new BadRequestException();
@@ -107,11 +102,9 @@ public class HTTPRequest extends HTTP{
             }
         }
         catch (IndexOutOfBoundsException | BadHeaderException e){
-            System.out.println("Bad things");
             throw new BadRequestException();
         }
         catch (NumberFormatException e){
-            System.out.println("Numberformat");
             throw new BadVersionException();
         }
     }
@@ -125,7 +118,7 @@ public class HTTPRequest extends HTTP{
     }
 
     public HashMap<HTTPOption, HTTPHeader> getHeaders(){
-        return headers; //TODO: clone?
+        return headers; 
     }
 
     public String getBody(){

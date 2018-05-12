@@ -21,7 +21,7 @@ public class WebServer{
 
             //create socket
             ServerSocket serverSocket = new ServerSocket(PORT);
-            System.err.println("Serveur lanced sur le port : " + PORT);
+            System.err.println("Serveur launched on port : " + PORT);
             ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
             //Repeatedly wait for connections, and process
@@ -31,8 +31,6 @@ public class WebServer{
 
                 //use a thread to process the request
                 executorService.submit(new Worker(i++, clientSocket));
-                System.err.println("New client connected");
-
             }
         }
         catch (IOException e){

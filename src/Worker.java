@@ -19,11 +19,12 @@ public class Worker implements Runnable{
         this.number = number;
         this.socket = s;
 
-        System.out.println("Do things number " + this.number);
     }
 
     @Override
     public void run(){
+
+        System.out.println("Start of thread number " + this.number);
 
         //Handle the request then close the socket
         try{
@@ -33,6 +34,9 @@ public class Worker implements Runnable{
         catch (Exception e){
             System.err.println("Error occured when handling the client connection number " + this.number + " : " + e.getMessage());
         }
+        
+        System.out.println("End of thread number " + this.number);
+
     }
 
 

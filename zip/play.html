@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="play.css">
+</head>
+
+<h1 class="center"><u> Mastermind </u></h1>
+
+<div class="game">
+    <!-- GAMETOKEN-->
+</div>
+
+<noscript>
+    <style>
+        .hideIfJS {
+            display: none;
+        }
+    </style>
+</noscript>
+
+<div class="usr">
+    <h2 id="usrTitle">User Space</h2>
+    <ul class="usr hideIfJS">
+        <li><img src="white.png" alt="white" class="usr" id="usrImg0" onclick="changeColor(0)"></li>
+        <li><img src="white.png" alt="white" class="usr" id="usrImg1" onclick="changeColor(1)"></li>
+        <li><img src="white.png" alt="white" class="usr" id="usrImg2" onclick="changeColor(2)"></li>
+        <li><img src="white.png" alt="white" class="usr" id="usrImg3" onclick="changeColor(3)"></li>
+    </ul>
+    <button class="hideIfJS" onclick="sendAjax()">Submit</button>
+
+
+    <noscript>
+        <form action="/play.html" method="post">
+            Colors:<br>
+            <input type="text" name="colors" value="red red red red">
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </noscript>
+
+    <script type="text/javascript" src="play.js"></script>
+
+
+</div>
+
+</body>
+</html>

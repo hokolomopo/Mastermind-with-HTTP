@@ -5,5 +5,6 @@ public class BadOptionException extends Exception{
     private static final long serialVersionUID = 1L;
 
     public BadOptionException(){
+        System.err.println("Invalid header");
     }
 }

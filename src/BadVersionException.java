@@ -5,5 +5,6 @@ public class BadVersionException extends Exception{
     private static final long serialVersionUID = 1L;
 
     public BadVersionException(){
+        System.err.println("Wrong http version");
     }
 }

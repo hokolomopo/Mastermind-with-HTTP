@@ -12,7 +12,7 @@ public class Worker implements Runnable{
     /**
      * constructor
      *
-     * @param number number to indentify the worker
+     * @param number number to identify the worker
      * @param s      a connection socket
      */
     public Worker(int number, Socket s){

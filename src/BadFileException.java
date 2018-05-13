@@ -5,5 +5,6 @@ public class BadFileException extends Exception{
     private static final long serialVersionUID = 1L;
 
     public BadFileException(){
+        System.err.println("Invalid file");
     }
 }

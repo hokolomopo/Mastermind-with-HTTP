@@ -5,5 +5,6 @@ public class BadMethodException extends Exception{
     private static final long serialVersionUID = 1L;
 
     public BadMethodException(){
+        System.err.println("Invalid method");
     }
 }

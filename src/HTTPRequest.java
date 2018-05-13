@@ -68,12 +68,11 @@ public class HTTPRequest extends HTTP{
 
                 //check if the body of the request is a string
                 try{
-                    System.out.println(FileType.getCorrespondingFileType(content.getValue()) + " " + FileType.getCorrespondingFileType(content.getValue()).isString());
                     if (!FileType.getCorrespondingFileType(content.getValue()).isString())
                         throw new BadRequestException();
                 }
                 catch (BadFileException e){
-                    System.out.println("Bad file");
+                    System.err.println("Bad file");
                     throw new BadRequestException();
                 }
 

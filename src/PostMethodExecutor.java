@@ -55,7 +55,7 @@ public class PostMethodExecutor extends MethodExecutor{
             //evaluate the combination
             combi.evaluate(this.cookie.getRightCombination());
 
-            //addthis try to the game state
+            //add this try to the game state
             this.cookie.addTry(combi);
 
             //Check for victory/defeat

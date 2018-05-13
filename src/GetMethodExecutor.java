@@ -56,7 +56,6 @@ public class GetMethodExecutor extends MethodExecutor{
 
         // if the request is an AJAX request to set a new try
         if (isRequest){
-
             // remove the "request?" part
             String request = url.substring(9);
 

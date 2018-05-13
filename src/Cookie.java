@@ -34,11 +34,6 @@ public class Cookie{
         }
 
         this.answer = rightCombi;
-        System.out.print("Right combination is ");
-        for (Colors i : rightCombi.getColors())
-            System.out.print(i.getName());
-        System.out.println();
-
     }
 
     /**

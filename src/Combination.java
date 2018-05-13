@@ -48,7 +48,6 @@ public class Combination{
      * @throws BadColorException  in case a color which is not part of mastermind's color is entered
      */
     public void setCombi(String s) throws BadFormatException, BadColorException{
-        System.out.println("what the fuck");
         //Cut the string into the colors
         ArrayList<String> colors = new ArrayList<String>(Arrays.asList(s.split("\\+")));
 
@@ -63,9 +62,6 @@ public class Combination{
 
         //Transform the Strings into Colors
         for (int i = 0; i < COMBI_LENGTH; i++){
-
-            System.out.print(colors.get(i) + " ");
-
             combi[i] = Colors.getColor(colors.get(i));
 
             //Throws exception if it was a bas color name

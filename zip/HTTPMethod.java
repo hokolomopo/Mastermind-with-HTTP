@@ -10,7 +10,7 @@ public enum HTTPMethod{
     HEAD("HEAD", "HeadMethodExecutor");
 
     //the executor associated to the method, this is what describe the behaviour of the method
-    private Class exec;
+    private Class<?> exec;
 
     private String name;
 

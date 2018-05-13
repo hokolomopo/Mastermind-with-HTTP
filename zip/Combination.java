@@ -62,6 +62,7 @@ public class Combination{
 
         //Transform the Strings into Colors
         for (int i = 0; i < COMBI_LENGTH; i++){
+
             combi[i] = Colors.getColor(colors.get(i));
 
             //Throws exception if it was a bas color name

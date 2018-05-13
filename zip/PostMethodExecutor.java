@@ -44,27 +44,29 @@ public class PostMethodExecutor extends MethodExecutor{
         //split the body between the "colors" part and the part that hold the combination
         StringTokenizer token = new StringTokenizer(requestBody, "=");
 
-        try{
-            //Check if the first part is "colors"
-            if (!(token.nextToken().equals("colors")))
-                throw new BadRequestException();
+        synchronized (cookie){
+            try{
+                //Check if the first part is "colors"
+                if (!(token.nextToken().equals("colors")))
+                    throw new BadRequestException();
 
-            // build the combination according to what's given in the body
-            Combination combi = new Combination(token.nextToken());
+                // build the combination according to what's given in the body
+                Combination combi = new Combination(token.nextToken());
 
-            //evaluate the combination
-            combi.evaluate(this.cookie.getRightCombination());
+                //evaluate the combination
+                combi.evaluate(this.cookie.getRightCombination());
 
-            //add this try to the game state
-            this.cookie.addTry(combi);
+                //add this try to the game state
+                this.cookie.addTry(combi);
 
-            //Check for victory/defeat
-            if (combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES){
-                cookie.reset();
+                //Check for victory/defeat
+                if (combi.getResults()[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES){
+                    cookie.reset();
+                }
             }
-        }
-        catch (NoSuchElementException | BadFormatException | BadColorException e){
-            //invalid request, do not add.
+            catch (NoSuchElementException | BadFormatException | BadColorException e){
+                //invalid request, do not add.
+            }
         }
 
         return new HTTPRedirectionReply(HTMLPage.HTML_FILE);

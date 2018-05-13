@@ -36,8 +36,5 @@ public class Worker implements Runnable{
         }
         
         System.out.println("End of thread number " + this.number);
-
     }
-
-
 }

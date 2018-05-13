@@ -54,108 +54,111 @@ public class GetMethodExecutor extends MethodExecutor{
             //let isRequest to false;
         }
 
-        // if the request is an AJAX request to set a new try
-        if (isRequest){
-            // remove the "request?" part
-            String request = url.substring(9);
+        synchronized (cookie){
+            // if the request is an AJAX request to set a new try
+            if (isRequest){
 
-            //split into "colors" and the part that hold the combination
-            String[] splittedRequest = request.split("=");
+                // remove the "request?" part
+                String request = url.substring(9);
 
-            if (!splittedRequest[0].equals("colors") || splittedRequest.length != 2)
-                throw new BadRequestException();
+                //split into "colors" and the part that hold the combination
+                String[] splittedRequest = request.split("=");
 
-            try{
-                //build a new combination according to the combination part of the request
-                Combination testedCombi = new Combination(splittedRequest[1]);
+                if (!splittedRequest[0].equals("colors") || splittedRequest.length != 2)
+                    throw new BadRequestException();
 
-                //evaluate the combination
-                testedCombi.evaluate(this.cookie.getRightCombination());
+                try{
+                    //build a new combination according to the combination part of the request
+                    Combination testedCombi = new Combination(splittedRequest[1]);
 
-                //save the new try in the cookie
-                this.cookie.addTry(testedCombi);
+                    //evaluate the combination
+                    testedCombi.evaluate(this.cookie.getRightCombination());
 
-                //build the body with the results of the evaluation
-                int[] results = testedCombi.getResults();
-                replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
+                    //save the new try in the cookie
+                    this.cookie.addTry(testedCombi);
 
-                // add type and length headers
-                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
-                replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length())));
+                    //build the body with the results of the evaluation
+                    int[] results = testedCombi.getResults();
+                    replyBody = (this.cookie.getCurrentTry() - 1) + "+" + results[0] + "+" + results[1];
 
-                //Check for victory
-                if (results[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES){
-                    cookie.reset();
+                    // add type and length headers
+                    replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
+                    replyHeaders.put(HTTPOption.CONTENT_LENGTH, new HTTPHeader(HTTPOption.CONTENT_LENGTH, String.valueOf(((String) replyBody).length())));
+
+                    //Check for victory
+                    if (results[0] == Combination.COMBI_LENGTH || cookie.getCurrentTry() == HTMLPage.LIVES){
+                        cookie.reset();
+                    }
+                }
+                catch (BadFormatException | BadColorException e){
+                    return new HTTPRedirectionReply(HTMLPage.HTML_FILE); // invalid combination -> get back to the page
                 }
             }
-            catch (BadFormatException | BadColorException e){
-                return new HTTPRedirectionReply(HTMLPage.HTML_FILE); // invalid combination -> get back to the page
-            }
-        }
 
-        // it is a known file
-        else if (WebsiteFiles.getFile(url.substring(1)) != null){
+            // it is a known file
+            else if (WebsiteFiles.getFile(url.substring(1)) != null){
 
-            WebsiteFiles file = WebsiteFiles.getFile(url.substring(1));
+                WebsiteFiles file = WebsiteFiles.getFile(url.substring(1));
 
-            try{
-                replyBody = file.file2String();
-            }
-            catch (IOException e){
-                throw new NotFoundException();
-            }
+                try{
+                    replyBody = file.file2String();
+                }
+                catch (IOException e){
+                    throw new NotFoundException();
+                }
 
-            replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, file.getContentType()));
-            replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
-            replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
-            replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Fri, 31 Dec 2100 23:59:59 GMT"));
-
-
-        }
-
-        // it is an image
-        else if (url.endsWith(".png")){
-            try{
-                // set the body to a bufferedImage read in the file corresponding the path given in the url
-                replyBody = ImageIO.read(new File(url.substring(1)));
-
-                //set headers
-                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.PNG.getContentType()));
+                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, file.getContentType()));
                 replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
                 replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
                 replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Fri, 31 Dec 2100 23:59:59 GMT"));
 
-            }
-            catch (IOException e){
-                throw new BadRequestException();
-            }
-        }
 
-        //the page is requested
-        else if (url.equals("/" + HTMLPage.HTML_FILE)){
-            HTMLPage page = null;
-
-            try{
-                page = new HTMLPage();
-            }
-            catch (IOException e){
-                throw new BadRequestException();
             }
 
-            //set the page according to the game's state
-            this.cookie.setUpHTMLPage(page);
+            // it is an image
+            else if (url.endsWith(".png")){
+                try{
+                    // set the body to a bufferedImage read in the file corresponding the path given in the url
+                    replyBody = ImageIO.read(new File(url.substring(1)));
 
-            //set the body with the page's HTML code
-            replyBody = page.getHtmlCode();
+                    //set headers
+                    replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.PNG.getContentType()));
+                    replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
+                    replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+                    replyHeaders.put(HTTPOption.EXPIRES, new HTTPHeader(HTTPOption.EXPIRES, "Fri, 31 Dec 2100 23:59:59 GMT"));
 
-            //set the headers
-            replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
-            replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
-            replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+                }
+                catch (IOException e){
+                    throw new BadRequestException();
+                }
+            }
 
-        }
-        else{ // invalid url
-            throw new NotFoundException();
+            //the page is requested
+            else if (url.equals("/" + HTMLPage.HTML_FILE)){
+                HTMLPage page = null;
+
+                try{
+                    page = new HTMLPage();
+                }
+                catch (IOException e){
+                    throw new BadRequestException();
+                }
+
+                //set the page according to the game's state
+                this.cookie.setUpHTMLPage(page);
+
+                //set the body with the page's HTML code
+                replyBody = page.getHtmlCode();
+
+                //set the headers
+                replyHeaders.put(HTTPOption.CONTENT_TYPE, new HTTPHeader(HTTPOption.CONTENT_TYPE, FileType.HTML.getContentType()));
+                replyHeaders.put(HTTPOption.TRANSFER_ENCODING, new HTTPHeader(HTTPOption.TRANSFER_ENCODING, "chunked"));
+                replyHeaders.put(HTTPOption.CONTENT_ENCODING, new HTTPHeader(HTTPOption.CONTENT_ENCODING, "gzip"));
+
+            }
+            else{ // invalid url
+                throw new NotFoundException();
+            }
         }
 
         // if we get here, all went ok, return the reply with OK return code

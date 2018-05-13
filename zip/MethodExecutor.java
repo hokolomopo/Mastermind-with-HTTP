@@ -73,12 +73,6 @@ public abstract class MethodExecutor extends HTTP{
         }
         cookie.updateTime();
         replyHeaders.put(HTTPOption.SET_COOKIE, new HTTPHeader(HTTPOption.SET_COOKIE, cookie.getId() + "; path=/"));
-        
-        
-        System.out.print("Correct Combination : ");
-        for(Colors c : cookie.getRightCombination().getColors())
-        	System.out.print(c + " ");
-        System.out.println("");
     }
 
 }
